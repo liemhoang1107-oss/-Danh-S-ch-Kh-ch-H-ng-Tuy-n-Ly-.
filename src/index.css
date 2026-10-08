@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold-100: #fff9db;
+    --gold-200: #fff3bf;
+    --gold-300: #ffe066;
+    --gold-400: #ffd43b;
+    --gold-500: #fcc419;
+    --gold-600: #fab005;
+    --gold-700: #f59f00;
+    --gold-800: #f08c00;
+    --velvet-900: #2a0409;
+    --velvet-800: #42080f;
+    --velvet-700: #5c0a15;
+    --velvet-600: #7d101e;
+  }
+
+  body {
+    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #1a0407;
+    color: #f5f0eb;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-brand {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1f0408;
+}
+::-webkit-scrollbar-thumb {
+  background: #7d101e;
+  border-radius: 5px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a81c2d;
+}
+
+/* Gold Text Gradient */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #fff7cd 0%, #ffd700 35%, #ffae19 70%, #fff1a8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-text-subtle {
+  background: linear-gradient(135deg, #fff2b2 0%, #fcd34d 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Luxury Card Borders */
+.gold-border-gradient {
+  border: 1px solid transparent;
+  background-image: linear-gradient(#2b060b, #2b060b), linear-gradient(135deg, #ffd700, #b45309, #fef08a, #d97706);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.gold-border-subtle {
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+/* Glowing Aura */
+.gold-glow {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.3), 0 0 50px rgba(217, 119, 6, 0.15);
+}
+
+.gold-glow-hover:hover {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.45), 0 0 60px rgba(217, 119, 6, 0.25);
+}
+
+.velvet-depth-shadow {
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Silk Velvet Drape Pattern */
+.bg-velvet-drapes {
+  background-color: #3b060d;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(130, 16, 28, 0.8) 0%, transparent 60%),
+    radial-gradient(circle at 10% 40%, rgba(80, 8, 15, 0.9) 0%, transparent 50%),
+    radial-gradient(circle at 90% 40%, rgba(95, 10, 18, 0.9) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(35, 4, 8, 0.95) 0%, transparent 70%);
+}
+
+/* Gold sparkle animation */
+@keyframes sparkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.animate-sparkle-slow {
+  animation: sparkle 3.5s ease-in-out infinite;
+}
+
+.animate-sparkle-delay {
+  animation: sparkle 4s ease-in-out 1.5s infinite;
+}
