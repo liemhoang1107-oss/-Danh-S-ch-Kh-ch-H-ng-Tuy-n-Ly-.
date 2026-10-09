@@ -132,7 +132,7 @@ export const POSTER_FEATURED_DISHES: DishItem[] = [
     featuredPoster: true,
     tag: 'Món Tiêu Biểu Poster',
     desc: 'Món gỏi tiệc độc đáo trứ danh với vị chua ngọt hài hòa, giòn sần sật tươi mát, điểm xuyết mè rang và đậu phộng bùi béo thơm ngát.',
-    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+    image: '/images/goi-sing-sam.jpg',
     priceEstimate: 290000,
   },
   {
@@ -152,7 +152,7 @@ export const POSTER_FEATURED_DISHES: DishItem[] = [
     featuredPoster: true,
     tag: 'Hương Vị Quê Hương',
     desc: 'Bắp hoa chuối tây bào mỏng giữ trọn độ giòn tự nhiên, bóp thấu cùng thịt gà ta xé phay hoặc tai heo giòn sần sật và nước chấm tỏi ớt cay nồng.',
-    image: 'https://images.unsplash.com/photo-1505253758473-96b301d5c8f9?auto=format&fit=crop&w=800&q=80',
+    image: '/images/goi-hoa-chuoi.jpg',
     priceEstimate: 280000,
   },
   {
