@@ -16,7 +16,7 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
           href={BRAND_INFO.zaloUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#0068ff] text-white shadow-xl hover:bg-[#0055d4] transition-all duration-300 hover:scale-105"
+          className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#0068ff] text-white shadow-lg hover:bg-[#0055d4] transition-all duration-300 hover:scale-105"
           title="Chat Zalo với Chị Ly"
         >
           <MessageCircle className="w-5 h-5 text-white" />
@@ -26,7 +26,7 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
         {/* Hotline 1 Button */}
         <a
           href={`tel:${BRAND_INFO.hotline1Raw}`}
-          className="group flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-red-600 to-red-700 text-white shadow-xl hover:from-red-500 hover:to-red-600 transition-all duration-300 hover:scale-105 border border-red-300/40"
+          className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-lg hover:from-red-700 hover:to-rose-700 transition-all duration-300 hover:scale-105 border border-red-500"
           title="Gọi Hotline Chị Ly"
         >
           <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center animate-bounce">
@@ -41,7 +41,7 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
         {/* Booking CTA Button */}
         <button
           onClick={onOpenBooking}
-          className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-stone-950 font-black text-xs uppercase tracking-wider shadow-2xl hover:from-amber-300 hover:to-yellow-300 transition-all duration-300 hover:scale-105 border-2 border-yellow-200 cursor-pointer"
+          className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl hover:from-amber-300 hover:to-yellow-300 transition-all duration-300 hover:scale-105 border border-amber-300 cursor-pointer"
         >
           <Calendar className="w-4 h-4" />
           <span>ĐẶT TIỆC NGAY</span>
@@ -49,12 +49,12 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
       </div>
 
       {/* Mobile Sticky Bottom Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#1c0205]/95 backdrop-blur-md border-t border-amber-500/40 p-2 shadow-[0_-5px_20px_rgba(0,0,0,0.6)]">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-rose-200/80 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
         <div className="grid grid-cols-3 gap-2">
           {/* Call Hotline 1 */}
           <a
             href={`tel:${BRAND_INFO.hotline1Raw}`}
-            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-gradient-to-b from-red-700 to-red-800 text-white text-center border border-red-400/40 shadow active:scale-95 transition-transform"
+            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-gradient-to-b from-red-600 to-rose-700 text-white text-center shadow-xs active:scale-95 transition-transform"
           >
             <Phone className="w-4 h-4 text-amber-300 animate-pulse mb-0.5" />
             <span className="text-[10px] font-black uppercase text-amber-200 leading-tight">Gọi Chị Ly</span>
@@ -66,7 +66,7 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
             href={BRAND_INFO.zaloUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#0068ff] text-white text-center shadow active:scale-95 transition-transform"
+            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#0068ff] text-white text-center shadow-xs active:scale-95 transition-transform"
           >
             <MessageCircle className="w-4 h-4 text-white mb-0.5" />
             <span className="text-[10px] font-black uppercase leading-tight">Nhắn Zalo</span>
@@ -76,11 +76,11 @@ export const FloatingContactBar: React.FC<FloatingContactBarProps> = ({ onOpenBo
           {/* Book Now */}
           <button
             onClick={onOpenBooking}
-            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-gradient-to-b from-amber-400 to-yellow-500 text-stone-950 text-center font-black shadow active:scale-95 transition-transform border border-amber-200"
+            className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-gradient-to-b from-amber-400 to-yellow-400 text-slate-950 text-center font-black shadow-xs active:scale-95 transition-transform border border-amber-300"
           >
-            <Calendar className="w-4 h-4 text-stone-950 mb-0.5" />
+            <Calendar className="w-4 h-4 text-slate-950 mb-0.5" />
             <span className="text-[10px] font-black uppercase leading-tight">Đặt Tiệc</span>
-            <span className="text-[9px] font-bold text-stone-900">Báo giá ngay</span>
+            <span className="text-[9px] font-bold text-slate-800">Báo giá ngay</span>
           </button>
         </div>
       </div>

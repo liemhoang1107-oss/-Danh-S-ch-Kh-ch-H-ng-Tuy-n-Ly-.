@@ -24,28 +24,28 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full shadow-xl backdrop-blur-md bg-[#240408]/98 border-b border-amber-500/30">
-      {/* 1. Top Bar: Tinh gọn 1 dòng duy nhất, không bị tràn */}
-      <div className="bg-gradient-to-r from-[#38060d] via-[#540913] to-[#38060d] py-1 px-4 text-[11px] sm:text-xs text-amber-200 border-b border-amber-500/20">
+    <header className="sticky top-0 z-50 w-full shadow-sm backdrop-blur-md bg-white/95 border-b border-rose-100/80 transition-all">
+      {/* 1. Top Bar: Tinh gọn 1 dòng duy nhất, trang nhã */}
+      <div className="bg-gradient-to-r from-red-800 via-rose-900 to-red-800 py-1.5 px-4 text-[11px] sm:text-xs text-rose-100 border-b border-red-700/50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
           {/* Địa chỉ */}
-          <div className="flex items-center gap-1.5 truncate text-stone-300">
-            <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
+          <div className="flex items-center gap-1.5 truncate text-rose-100">
+            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
             <span className="truncate">Phù Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</span>
           </div>
 
           {/* Hotline & Phục vụ */}
           <div className="flex items-center gap-3 shrink-0 font-medium">
-            <span className="hidden sm:inline text-amber-300/80">Phục vụ 24/7</span>
+            <span className="hidden sm:inline text-amber-200/90 font-medium">Phục vụ 24/7</span>
             <div className="flex items-center gap-1.5">
-              <span className="text-amber-400 font-semibold">Hotline:</span>
+              <span className="text-amber-300 font-semibold">Hotline:</span>
               <a
                 href={`tel:${BRAND_INFO.hotline1Raw}`}
                 className="font-bold text-amber-300 hover:text-white underline decoration-amber-400"
               >
                 {BRAND_INFO.hotline1}
               </a>
-              <span className="text-amber-500/60 hidden md:inline">·</span>
+              <span className="text-rose-300/60 hidden md:inline">·</span>
               <a
                 href={`tel:${BRAND_INFO.hotline2Raw}`}
                 className="font-bold text-amber-300 hover:text-white underline decoration-amber-400 hidden md:inline"
@@ -57,19 +57,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
         </div>
       </div>
 
-      {/* 2. Main Navigation Bar: Bố cục gọn gàng, cố định chiều cao, không rớt dòng */}
+      {/* 2. Main Navigation Bar: Bố cục thanh thoát, màu sắc tươi sáng sang trọng */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-18 gap-3">
           
-          {/* Logo & Brand Identity (Gọn gàng, không bị vỡ chữ) */}
+          {/* Logo & Brand Identity */}
           <div
             onClick={() => handleNavClick('hero')}
             className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
           >
             {/* Avatar Badge Chị Ly */}
             <div className="relative shrink-0">
-              <div className="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-600 shadow flex items-center justify-center">
-                <div className="w-full h-full rounded-full overflow-hidden border border-amber-300/50 bg-[#3d060c]">
+              <div className="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-red-500 to-amber-500 shadow-sm flex items-center justify-center">
+                <div className="w-full h-full rounded-full overflow-hidden border border-white bg-red-50">
                   <img
                     src="https://i.ibb.co/5WkSQ965/IMG-5866.jpg"
                     alt="Chị Ly"
@@ -77,23 +77,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
                   />
                 </div>
               </div>
-              <div className="absolute -bottom-1 -right-1 bg-emerald-800 text-amber-200 text-[8px] font-black px-1 rounded shadow border border-amber-300/60 leading-tight">
+              <div className="absolute -bottom-1 -right-1 bg-emerald-700 text-white text-[8px] font-black px-1 rounded shadow-sm border border-white leading-tight">
                 Chị Ly
               </div>
             </div>
 
             {/* Brand Title */}
             <div className="flex flex-col justify-center leading-none">
-              <div className="text-xl sm:text-2xl font-brand font-black tracking-wider gold-text-gradient whitespace-nowrap">
+              <div className="text-xl sm:text-2xl font-brand font-black tracking-wider text-red-700 whitespace-nowrap group-hover:text-red-800 transition-colors">
                 TUYẾN LY
               </div>
-              <div className="text-[9px] uppercase tracking-wider font-bold text-amber-300/85 mt-0.5 whitespace-nowrap">
+              <div className="text-[10px] uppercase tracking-wider font-bold text-stone-500 mt-0.5 whitespace-nowrap">
                 Nấu Ăn · Cưới Hỏi · Xe Du Lịch
               </div>
             </div>
           </div>
 
-          {/* Desktop Nav Links (Ngắn gọn, vừa vặn màn hình) */}
+          {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -101,9 +101,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
                 <button
                   key={item.sectionId}
                   onClick={() => handleNavClick(item.sectionId)}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs xl:text-sm font-semibold text-stone-200 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-colors whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 py-2 text-xs xl:text-sm font-semibold text-stone-700 hover:text-red-700 hover:bg-rose-50 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
                 >
-                  <Icon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <Icon className="w-4 h-4 text-amber-600 shrink-0" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -111,32 +111,32 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
           </nav>
 
           {/* Right Action Area (Hotline & Đặt Tiệc) */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
             {/* Hotline Button */}
             <a
               href={`tel:${BRAND_INFO.hotline1Raw}`}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#3d060c] text-amber-300 border border-amber-400/40 hover:bg-[#500810] transition-colors whitespace-nowrap"
+              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-50 text-red-800 border border-red-200 hover:bg-rose-100 transition-colors whitespace-nowrap"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              <Phone className="w-3.5 h-3.5 text-red-600 animate-pulse" />
               <span>{BRAND_INFO.hotline1}</span>
             </a>
 
             {/* CTA Button */}
             <button
               onClick={onOpenBooking}
-              className="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-stone-950 bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:from-amber-200 hover:to-amber-400 shadow-md transition-all active:scale-95 flex items-center gap-1.5 whitespace-nowrap border border-yellow-200 cursor-pointer"
+              className="px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-700 hover:to-rose-800 shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center gap-1.5 whitespace-nowrap border border-red-500/30 cursor-pointer"
             >
-              <Calendar className="w-3.5 h-3.5 text-stone-950 shrink-0" />
+              <Calendar className="w-3.5 h-3.5 text-amber-200 shrink-0" />
               <span>ĐẶT TIỆC NGAY</span>
             </button>
 
             {/* Mobile Hamburger Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-amber-300 hover:bg-amber-500/20 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-rose-50 transition-colors"
               aria-label="Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-red-700" /> : <MenuIcon className="w-6 h-6" />}
             </button>
           </div>
 
@@ -145,34 +145,34 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
 
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-amber-500/20 bg-[#250409]/98 px-4 py-3 space-y-1 shadow-2xl animate-in slide-in-from-top-2 duration-150">
+        <div className="lg:hidden border-t border-rose-100 bg-white px-4 py-3 space-y-1 shadow-xl animate-in slide-in-from-top-2 duration-150">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <button
                 key={item.sectionId}
                 onClick={() => handleNavClick(item.sectionId)}
-                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold text-stone-200 hover:text-amber-300 hover:bg-amber-500/15 rounded-lg transition-colors text-left"
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-semibold text-stone-700 hover:text-red-700 hover:bg-rose-50 rounded-lg transition-colors text-left"
               >
-                <Icon className="w-4 h-4 text-amber-400" />
+                <Icon className="w-4 h-4 text-red-600" />
                 <span>{item.label}</span>
               </button>
             );
           })}
 
-          <div className="pt-2 border-t border-amber-500/20 flex flex-col gap-1.5">
+          <div className="pt-2.5 border-t border-rose-100 flex flex-col gap-2">
             <a
               href={`tel:${BRAND_INFO.hotline1Raw}`}
-              className="flex items-center justify-center gap-2 w-full py-2 rounded-lg text-xs font-bold bg-[#3b060d] text-amber-300 border border-amber-400/40"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold bg-rose-50 text-red-800 border border-red-200"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <Phone className="w-4 h-4 text-red-600" />
               <span>Gọi Chị Ly: {BRAND_INFO.hotline1}</span>
             </a>
             <a
               href={`tel:${BRAND_INFO.hotline2Raw}`}
-              className="flex items-center justify-center gap-2 w-full py-2 rounded-lg text-xs font-bold bg-[#3b060d] text-amber-300 border border-amber-400/40"
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold bg-rose-50 text-red-800 border border-red-200"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <Phone className="w-4 h-4 text-red-600" />
               <span>Gọi Xe & Rạp: {BRAND_INFO.hotline2}</span>
             </a>
           </div>

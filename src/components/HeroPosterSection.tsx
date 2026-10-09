@@ -39,38 +39,38 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden bg-velvet-drapes pt-6 pb-16 lg:py-16 text-white border-b border-amber-500/30">
-      {/* Decorative Gold Sparkle Dust */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-10 left-10 w-2 h-2 rounded-full bg-amber-300 animate-sparkle-slow shadow-[0_0_10px_#fde047]" />
-        <div className="absolute top-24 left-1/4 w-3 h-3 rounded-full bg-yellow-200 animate-sparkle-delay shadow-[0_0_15px_#fde047]" />
-        <div className="absolute top-1/3 left-12 w-2 h-2 rounded-full bg-amber-400 animate-sparkle-slow shadow-[0_0_8px_#fde047]" />
-        <div className="absolute bottom-20 left-1/3 w-3 h-3 rounded-full bg-yellow-300 animate-sparkle-delay shadow-[0_0_12px_#fde047]" />
-        <div className="absolute top-16 right-20 w-2.5 h-2.5 rounded-full bg-amber-300 animate-sparkle-slow shadow-[0_0_10px_#fde047]" />
-        <div className="absolute bottom-32 right-1/4 w-3 h-3 rounded-full bg-yellow-200 animate-sparkle-delay shadow-[0_0_15px_#fde047]" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ffb703_1px,transparent_1px)] [background-size:32px_32px] opacity-10" />
+    <section id="hero" className="relative overflow-hidden bg-gradient-to-b from-rose-50/70 via-stone-50 to-white pt-6 pb-16 lg:py-16 text-slate-800">
+      {/* Subtle festive background pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-10 left-10 w-2 h-2 rounded-full bg-amber-400 animate-sparkle" />
+        <div className="absolute top-24 left-1/4 w-3 h-3 rounded-full bg-red-400 animate-sparkle" />
+        <div className="absolute top-1/3 left-12 w-2 h-2 rounded-full bg-amber-500 animate-sparkle" />
+        <div className="absolute bottom-20 left-1/3 w-3 h-3 rounded-full bg-rose-400 animate-sparkle" />
+        <div className="absolute top-16 right-20 w-2.5 h-2.5 rounded-full bg-amber-400 animate-sparkle" />
+        <div className="absolute bottom-32 right-1/4 w-3 h-3 rounded-full bg-red-300 animate-sparkle" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Banner Container - Styled exactly after the master Poster */}
-        <div className="relative rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-[#4e0712] via-[#680b18] to-[#3a040b] border-2 border-amber-400/50 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        
+        {/* Main Banner Container - Replicating Poster with Luxury High-Contrast Style */}
+        <div className="relative rounded-2xl lg:rounded-3xl p-5 sm:p-7 lg:p-9 bg-gradient-to-br from-[#800d1d] via-[#a31526] to-[#670914] text-white border-2 border-amber-400/80 shadow-[0_20px_50px_rgba(163,21,38,0.25)]">
           {/* Top Gold Corner Accents */}
-          <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-amber-300/80 rounded-tl pointer-events-none" />
-          <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-amber-300/80 rounded-tr pointer-events-none" />
-          <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-amber-300/80 rounded-bl pointer-events-none" />
-          <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-amber-300/80 rounded-br pointer-events-none" />
+          <div className="absolute top-2.5 left-2.5 w-8 h-8 border-t-2 border-l-2 border-amber-300 rounded-tl pointer-events-none" />
+          <div className="absolute top-2.5 right-2.5 w-8 h-8 border-t-2 border-r-2 border-amber-300 rounded-tr pointer-events-none" />
+          <div className="absolute bottom-2.5 left-2.5 w-8 h-8 border-b-2 border-l-2 border-amber-300 rounded-bl pointer-events-none" />
+          <div className="absolute bottom-2.5 right-2.5 w-8 h-8 border-b-2 border-r-2 border-amber-300 rounded-br pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* LEFT COLUMN: Identity, Owner Badge, Brand, Contact & Detailed Menu Board */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
               
               {/* Header Title with Owner Portrait & 3D Brand */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-2">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 pt-1 text-center sm:text-left">
                 
-                {/* Chị Ly - Owner Avatar Badge (Exact reproduction of poster) */}
-                <div className="relative flex flex-col items-center shrink-0 self-center sm:self-auto">
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1 bg-gradient-to-tr from-amber-600 via-yellow-300 to-amber-500 shadow-[0_0_20px_rgba(250,176,5,0.4)]">
-                    <div className="w-full h-full rounded-full overflow-hidden border-2 border-amber-200 bg-[#250409]">
+                {/* Chị Ly - Owner Avatar Badge */}
+                <div className="relative flex flex-col items-center shrink-0">
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1 bg-gradient-to-tr from-amber-500 via-yellow-200 to-amber-600 shadow-[0_0_20px_rgba(251,191,36,0.5)]">
+                    <div className="w-full h-full rounded-full overflow-hidden border-2 border-amber-100 bg-red-950">
                       <img 
                         src="https://i.ibb.co/5WkSQ965/IMG-5866.jpg" 
                         alt="Chị Ly – Chủ cơ sở Tuyến Ly"
@@ -78,39 +78,39 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                       />
                     </div>
                   </div>
-                  {/* Dark Green Velvet Ribbon Badge */}
-                  <div className="relative -mt-3.5 z-10 px-3.5 py-1 rounded bg-gradient-to-r from-[#0d3b24] via-[#125837] to-[#0d3b24] border border-amber-400 text-amber-200 text-xs sm:text-sm font-bold shadow-md tracking-wide text-center">
+                  {/* Emerald Ribbon Badge */}
+                  <div className="relative -mt-3.5 z-10 px-3.5 py-1 rounded-md bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-800 border border-amber-300 text-amber-100 text-xs sm:text-sm font-bold shadow-md tracking-wide text-center">
                     Chị Ly – Chủ Cơ Sở
                   </div>
                 </div>
 
                 {/* Brand Titles */}
-                <div className="flex-1 text-center sm:text-left">
-                  <div className="text-xs sm:text-sm md:text-base font-extrabold tracking-wider uppercase text-amber-300/95 leading-snug drop-shadow">
+                <div className="flex-1">
+                  <div className="text-xs sm:text-sm md:text-base font-extrabold tracking-wider uppercase text-amber-200 leading-snug drop-shadow-sm">
                     DỊCH VỤ NẤU ĂN - XE DU LỊCH - CƯỚI HỎI TRỌN GÓI
                   </div>
 
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-brand font-black tracking-wider gold-text-gradient py-1 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-brand font-black tracking-wider text-amber-300 py-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                     TUYẾN LY
                   </h1>
 
-                  <div className="text-base sm:text-lg md:text-xl font-serif-display italic font-semibold text-amber-100/90 tracking-wide">
+                  <div className="text-base sm:text-lg md:text-xl italic font-semibold text-rose-100 tracking-wide">
                     Trọn Vẹn Ngày Vui – Đậm Độc Bản Sắc
                   </div>
                 </div>
               </div>
 
-              {/* Hotline & Address Ribbon (Exact as poster) */}
-              <div className="rounded-xl p-3 sm:p-4 bg-gradient-to-r from-[#31050a]/90 via-[#480710]/95 to-[#31050a]/90 border border-amber-400/30 shadow-inner">
+              {/* Hotline & Address Ribbon */}
+              <div className="rounded-xl p-3 sm:p-4 bg-black/35 border border-amber-300/40 backdrop-blur-sm shadow-inner">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-5 h-5 text-amber-400 shrink-0 animate-pulse" />
+                    <Phone className="w-5 h-5 text-amber-300 shrink-0 animate-pulse" />
                     <div>
-                      <span className="text-xs uppercase text-amber-300 font-bold tracking-wider mr-2">Hotline:</span>
+                      <span className="text-xs uppercase text-amber-200 font-bold tracking-wider mr-2">Hotline:</span>
                       <a href={`tel:${BRAND_INFO.hotline1Raw}`} className="text-base sm:text-lg font-black text-amber-300 hover:text-white transition-colors">
                         {BRAND_INFO.hotline1}
                       </a>
-                      <span className="text-amber-400 mx-2 font-bold">–</span>
+                      <span className="text-amber-300 mx-2 font-bold">–</span>
                       <a href={`tel:${BRAND_INFO.hotline2Raw}`} className="text-base sm:text-lg font-black text-amber-300 hover:text-white transition-colors">
                         {BRAND_INFO.hotline2}
                       </a>
@@ -118,35 +118,35 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                   </div>
                 </div>
 
-                <div className="mt-2 pt-2 border-t border-amber-500/20 flex items-center gap-2 text-xs sm:text-sm text-stone-300 justify-center sm:justify-start">
-                  <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                <div className="mt-2 pt-2 border-t border-white/15 flex items-center gap-2 text-xs sm:text-sm text-rose-100 justify-center sm:justify-start">
+                  <MapPin className="w-4 h-4 text-amber-300 shrink-0" />
                   <span><strong>Địa chỉ:</strong> Phù Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</span>
                 </div>
               </div>
 
-              {/* THỰC ĐƠN TIỆC ĐA DẠNG (The signature wooden golden frame board from the poster) */}
-              <div className="relative rounded-2xl p-4 sm:p-5 bg-gradient-to-b from-[#2e1208] via-[#210904] to-[#150502] border-2 sm:border-[3px] border-[#c98d28] shadow-[0_12px_30px_rgba(0,0,0,0.8)]">
+              {/* THỰC ĐƠN TIỆC ĐA DẠNG (Signature Framed Menu Board) */}
+              <div className="relative rounded-2xl p-4 sm:p-5 bg-gradient-to-b from-[#3a090e] via-[#2a060a] to-[#1c0407] border-2 border-[#e6b349] shadow-2xl">
                 {/* Inner Gold Inset Line */}
-                <div className="absolute inset-1.5 border border-[#ecc968]/40 rounded-xl pointer-events-none" />
+                <div className="absolute inset-1.5 border border-[#ffd54f]/30 rounded-xl pointer-events-none" />
 
                 {/* Top Badge Title */}
                 <div className="relative flex justify-center -mt-8 sm:-mt-9 mb-3">
-                  <div className="px-6 sm:px-8 py-1.5 rounded-full bg-gradient-to-r from-[#4d1105] via-[#7a1f0a] to-[#4d1105] border-2 border-[#f5b842] shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-                    <span className="font-serif-display font-black tracking-wider text-sm sm:text-base md:text-lg text-[#ffe89c] uppercase drop-shadow">
+                  <div className="px-6 sm:px-8 py-1.5 rounded-full bg-gradient-to-r from-red-800 via-rose-700 to-red-800 border-2 border-amber-300 shadow-md">
+                    <span className="font-bold tracking-wider text-sm sm:text-base md:text-lg text-amber-200 uppercase drop-shadow">
                       THỰC ĐƠN TIỆC ĐA DẠNG
                     </span>
                   </div>
                 </div>
 
                 {/* 2 Columns of Dishes */}
-                <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 relative z-10 text-stone-100 text-sm sm:text-base font-semibold py-1">
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 relative z-10 text-white text-sm sm:text-base font-semibold py-1">
                   {/* Column 1 (6 items) */}
                   <div className="sm:col-span-7 space-y-2">
                     {column1Dishes.map((item) => (
                       <button
                         key={item.id}
                         onClick={() => handleDishClick(item.id)}
-                        className="w-full flex items-center gap-2 text-left group hover:text-amber-300 transition-colors p-1 rounded hover:bg-amber-950/40"
+                        className="w-full flex items-center gap-2 text-left group hover:text-amber-300 transition-colors p-1.5 rounded hover:bg-white/10 cursor-pointer"
                       >
                         <span className="text-amber-400 font-bold text-base group-hover:scale-125 transition-transform">+</span>
                         <span className="font-medium text-xs sm:text-sm md:text-[15px] group-hover:translate-x-1 transition-transform">
@@ -157,12 +157,12 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                   </div>
 
                   {/* Column 2 (4 items) */}
-                  <div className="sm:col-span-5 space-y-2 sm:border-l sm:border-[#c98d28]/30 sm:pl-4">
+                  <div className="sm:col-span-5 space-y-2 sm:border-l sm:border-amber-400/30 sm:pl-4">
                     {column2Dishes.map((item) => (
                       <button
                         key={item.id}
                         onClick={() => handleDishClick(item.id)}
-                        className="w-full flex items-center gap-2 text-left group hover:text-amber-300 transition-colors p-1 rounded hover:bg-amber-950/40"
+                        className="w-full flex items-center gap-2 text-left group hover:text-amber-300 transition-colors p-1.5 rounded hover:bg-white/10 cursor-pointer"
                       >
                         <span className="text-amber-400 font-bold text-base group-hover:scale-125 transition-transform">+</span>
                         <span className="font-medium text-xs sm:text-sm md:text-[15px] group-hover:translate-x-1 transition-transform">
@@ -171,28 +171,28 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                       </button>
                     ))}
 
-                    <div className="hidden sm:block pt-3 text-[11px] text-amber-200/70 italic leading-relaxed">
-                      * Nhấp vào từng món để xem hình ảnh và mô tả chi tiết thực đơn!
+                    <div className="hidden sm:block pt-3 text-[11px] text-amber-200/80 italic leading-relaxed">
+                      * Nhấp vào từng món để xem hình ảnh và mô tả chi tiết!
                     </div>
                   </div>
                 </div>
 
-                {/* Grand Call-To-Action Button (Exact replication from Poster) */}
-                <div className="mt-5 pt-3 border-t border-[#c98d28]/30 flex flex-col sm:flex-row items-center justify-center gap-3">
+                {/* Call-To-Action Buttons */}
+                <div className="mt-5 pt-3 border-t border-amber-400/30 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <button
                     onClick={onOpenBooking}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-full font-black text-sm sm:text-base uppercase tracking-wider text-[#3d080f] bg-gradient-to-r from-[#ffe57f] via-[#ffd54f] to-[#ffb300] hover:from-[#fff0b2] hover:to-[#ffc107] border-2 border-yellow-200 shadow-[0_6px_25px_rgba(255,193,7,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                    className="w-full sm:w-auto px-7 py-3 rounded-full font-black text-sm sm:text-base uppercase tracking-wider text-red-950 bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 hover:from-amber-200 hover:to-yellow-200 border-2 border-yellow-100 shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 group cursor-pointer"
                   >
                     <span>ĐẶT TIỆC & BÁO GIÁ NGAY</span>
-                    <ArrowRight className="w-5 h-5 text-[#3d080f] group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 text-red-950 group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <button
                     onClick={onGoToCalculator}
-                    className="w-full sm:w-auto px-5 py-3 rounded-full font-bold text-xs sm:text-sm text-amber-200 bg-black/40 hover:bg-black/60 border border-amber-400/40 transition-colors flex items-center justify-center gap-1.5"
+                    className="w-full sm:w-auto px-5 py-3 rounded-full font-bold text-xs sm:text-sm text-amber-200 bg-black/40 hover:bg-black/60 border border-amber-300/50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>Tự Tính Báo Giá Bàn Tiệc</span>
-                    <ChevronRight className="w-4 h-4 text-amber-400" />
+                    <ChevronRight className="w-4 h-4 text-amber-300" />
                   </button>
                 </div>
               </div>
@@ -202,43 +202,43 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
             {/* RIGHT COLUMN: Realistic Photographic Collage matching the Poster */}
             <div className="lg:col-span-5 flex flex-col space-y-4">
               
-              {/* Filter tabs to focus on Wedding Decor or Food */}
+              {/* Filter tabs */}
               <div className="flex items-center justify-end gap-1.5 text-xs">
-                <span className="text-stone-400 text-[11px] mr-1 hidden sm:inline">Hình ảnh thực tế:</span>
+                <span className="text-rose-200 text-[11px] mr-1 hidden sm:inline">Hình ảnh thực tế:</span>
                 <button
                   onClick={() => setSelectedPreviewTab('all')}
-                  className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                  className={`px-3 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
                     selectedPreviewTab === 'all'
-                      ? 'bg-amber-400 text-stone-950 font-bold'
-                      : 'bg-black/40 text-stone-300 hover:text-white'
+                      ? 'bg-amber-300 text-stone-900 font-bold shadow'
+                      : 'bg-black/40 text-stone-200 hover:text-white'
                   }`}
                 >
                   Tất cả
                 </button>
                 <button
                   onClick={() => setSelectedPreviewTab('rap')}
-                  className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                  className={`px-3 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
                     selectedPreviewTab === 'rap'
-                      ? 'bg-amber-400 text-stone-950 font-bold'
-                      : 'bg-black/40 text-stone-300 hover:text-white'
+                      ? 'bg-amber-300 text-stone-900 font-bold shadow'
+                      : 'bg-black/40 text-stone-200 hover:text-white'
                   }`}
                 >
                   Rạp Cưới & Cổng Hoa
                 </button>
                 <button
                   onClick={() => setSelectedPreviewTab('amthuc')}
-                  className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                  className={`px-3 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
                     selectedPreviewTab === 'amthuc'
-                      ? 'bg-amber-400 text-stone-950 font-bold'
-                      : 'bg-black/40 text-stone-300 hover:text-white'
+                      ? 'bg-amber-300 text-stone-900 font-bold shadow'
+                      : 'bg-black/40 text-stone-200 hover:text-white'
                   }`}
                 >
                   Món Tiệc Thực Tế
                 </button>
               </div>
 
-              {/* Photo Collage Grid (Faithfully replicating the Right side of the Poster) */}
-              <div className="relative rounded-2xl p-2.5 bg-gradient-to-br from-[#1c0205] to-[#2c050b] border border-amber-400/40 shadow-2xl">
+              {/* Photo Collage Grid */}
+              <div className="relative rounded-2xl p-2.5 bg-black/40 border border-amber-300/40 shadow-2xl backdrop-blur-sm">
                 
                 {/* 1. Top Row: Red Velvet Wedding Tent & Emerald Green Wedding Tent */}
                 <div className="grid grid-cols-2 gap-2.5 mb-2.5">
@@ -286,8 +286,8 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                   </div>
                 </div>
 
-                {/* 2. Middle Row: Sân Khấu Quạt Giấy Nghệ Thuật (Central Circular Badge like in poster) */}
-                <div className="relative mb-2.5 rounded-xl overflow-hidden border-2 border-amber-400 bg-stone-900 p-2 flex items-center gap-3 bg-gradient-to-r from-[#290308] to-[#3f0810]">
+                {/* 2. Middle Row: Sân Khấu Gia Tiên */}
+                <div className="relative mb-2.5 rounded-xl overflow-hidden border border-amber-400/50 bg-black/60 p-2 flex items-center gap-3">
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 border-2 border-amber-300 shadow-md">
                     <img
                       src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=400&q=80"
@@ -300,23 +300,23 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Sân Khấu Lễ Gia Tiên & Đèn Chùm Pha Lê</span>
                     </div>
-                    <p className="text-[11px] text-stone-300 mt-0.5 leading-snug">
+                    <p className="text-[11px] text-rose-100/90 mt-0.5 leading-snug">
                       Bài trí phong cách tân cổ điển, hoa tươi thơm ngát, quạt giấy phong thủy sum vầy phúc lộc.
                     </p>
                   </div>
                 </div>
 
-                {/* 3. Bottom Row: Seafood Platter & Full Banquet Table (Mâm tôm sú & Mâm cỗ tiệc) */}
+                {/* 3. Bottom Row: Seafood Platter & Full Banquet Table */}
                 <div className="grid grid-cols-2 gap-2.5">
                   
-                  {/* Photo 3: Tôm sú tươi & Cá bớp phi lê thảo mộc */}
+                  {/* Photo 3: Tôm sú tươi & Cá bớp phi lê */}
                   <div 
                     onClick={() => handleDishClick('lau-hai-san')}
                     className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
                   >
                     <img
                       src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80"
-                      alt="Tôm sú tươi nhảy tanh tách & cá bớp phi lê"
+                      alt="Tôm sú tươi & cá bớp phi lê"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -328,7 +328,7 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                     </div>
                   </div>
 
-                  {/* Photo 4: Mâm cỗ tiệc cưới hoàn chỉnh (Gà bó xôi, lagu bò, lẩu, gỏi) */}
+                  {/* Photo 4: Mâm cỗ tiệc cưới hoàn chỉnh */}
                   <div 
                     onClick={() => handleDishClick('ga-bo-xoi')}
                     className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
@@ -343,13 +343,13 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                       <span className="text-[11px] font-bold text-amber-200 block">
                         Mâm Cỗ Tiệc Đầy Đặn
                       </span>
-                      <span className="text-[9px] text-stone-300">Nóng hổi · Thơm ngon chuẩn vị</span>
+                      <span className="text-[9px] text-stone-300">Nóng hổi · Chuẩn vị quê hương</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Subtext info under collage */}
-                <div className="mt-3 pt-2 border-t border-amber-500/20 flex items-center justify-between text-[11px] text-amber-300/80 px-1">
+                <div className="mt-2.5 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] text-amber-200 px-1">
                   <span>✦ Phục vụ tận nơi tại Nghĩa Hành</span>
                   <span>✦ Bao trọn gói chén đĩa & bàn ghế</span>
                 </div>
@@ -362,33 +362,33 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
 
         {/* 3 Value Pillars Quick Bar under the main poster */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl bg-gradient-to-r from-[#290307] to-[#3a060d] border border-amber-500/25 flex items-center gap-3 shadow-lg">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0">
-              <Flame className="w-5 h-5 text-amber-400" />
+          <div className="p-4 rounded-2xl bg-white border border-rose-100 flex items-center gap-3.5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center shrink-0">
+              <Flame className="w-5 h-5 text-red-600" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-amber-200">Nấu Tiệc Nóng Sốt Tại Chỗ</h4>
-              <p className="text-xs text-stone-300">Từ 3 bàn gia đình đến 200 bàn tiệc cưới lớn</p>
+              <h4 className="text-sm font-bold text-slate-900">Nấu Tiệc Nóng Sốt Tại Chỗ</h4>
+              <p className="text-xs text-slate-500">Từ 3 bàn gia đình đến 200 bàn tiệc cưới lớn</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-gradient-to-r from-[#290307] to-[#3a060d] border border-amber-500/25 flex items-center gap-3 shadow-lg">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+          <div className="p-4 rounded-2xl bg-white border border-rose-100 flex items-center gap-3.5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-amber-600" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-amber-200">Cưới Hỏi & Rạp Nhung Trọn Gói</h4>
-              <p className="text-xs text-stone-300">Rạp nhung đỏ, xanh ngọc, gia tiên, cổng hoa đẹp</p>
+              <h4 className="text-sm font-bold text-slate-900">Cưới Hỏi & Rạp Nhung Trọn Gói</h4>
+              <p className="text-xs text-slate-500">Rạp nhung đỏ, xanh ngọc, gia tiên, cổng hoa đẹp</p>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-gradient-to-r from-[#290307] to-[#3a060d] border border-amber-500/25 flex items-center gap-3 shadow-lg">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0">
-              <Award className="w-5 h-5 text-amber-400" />
+          <div className="p-4 rounded-2xl bg-white border border-rose-100 flex items-center gap-3.5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0">
+              <Award className="w-5 h-5 text-emerald-600" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-amber-200">Xe Du Lịch & Rước Dâu Tuyến Ly</h4>
-              <p className="text-xs text-stone-300">Xe hoa 4 chỗ đời mới, xe 7-16-29-45 chỗ đúng giờ</p>
+              <h4 className="text-sm font-bold text-slate-900">Xe Du Lịch & Rước Dâu Tuyến Ly</h4>
+              <p className="text-xs text-slate-500">Xe hoa 4 chỗ đời mới, xe 7-16-29-45 chỗ đúng giờ</p>
             </div>
           </div>
         </div>

@@ -91,7 +91,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#140204] text-stone-100 flex flex-col font-sans selection:bg-amber-400 selection:text-stone-950">
+    <div className="min-h-screen bg-[#fbfaf8] text-slate-800 flex flex-col font-sans selection:bg-red-600 selection:text-white">
       {/* Header with quick links & hotlines */}
       <Header
         onOpenBooking={handleOpenBooking}

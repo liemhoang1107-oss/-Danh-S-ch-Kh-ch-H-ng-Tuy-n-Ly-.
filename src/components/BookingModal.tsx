@@ -222,17 +222,17 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in"
       onClick={onClose}
     >
       <div
-        className="relative max-w-xl w-full bg-gradient-to-b from-[#2e050b] via-[#3a070f] to-[#1f0205] border-2 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-2xl my-8 text-stone-100"
+        className="relative max-w-xl w-full bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 shadow-2xl my-8 text-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-300 hover:text-white p-2 rounded-full bg-black/50 border border-amber-400/40"
+          className="absolute top-4 right-4 text-slate-500 hover:text-slate-800 p-2 rounded-full bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer"
           title="Đóng"
         >
           <X className="w-5 h-5" />
@@ -241,24 +241,24 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* Google Apps Script Setup View */}
         {showAppsScriptSetup ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-amber-500/20">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
               <div className="flex items-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
-                <h3 className="text-base sm:text-lg font-bold text-amber-200">
+                <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
                   Cấu Hình Google Sheets & Mã Apps Script
                 </h3>
               </div>
               <button
                 onClick={() => setShowAppsScriptSetup(false)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-800 text-stone-200 hover:text-white"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200 cursor-pointer"
               >
                 ← Quay lại Form
               </button>
             </div>
 
             {/* URL Input */}
-            <div className="p-3.5 rounded-xl bg-black/60 border border-emerald-500/40 space-y-2">
-              <label className="block text-xs font-bold text-emerald-300">
+            <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2">
+              <label className="block text-xs font-bold text-emerald-900">
                 1. Dán đường link Web App URL Google Apps Script của bạn vào đây:
               </label>
               <div className="flex gap-2">
@@ -267,18 +267,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   placeholder="https://script.google.com/macros/s/.../exec"
                   value={appsScriptUrl}
                   onChange={(e) => setAppsScriptUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-lg bg-stone-900 border border-stone-700 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-emerald-400"
+                  className="flex-1 px-3 py-2 rounded-lg bg-white border border-stone-300 text-xs text-slate-900 placeholder-stone-400 focus:outline-none focus:border-emerald-600"
                 />
                 <button
                   type="button"
                   onClick={handleSaveAppsScriptUrl}
-                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shrink-0 transition-colors"
+                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 transition-colors cursor-pointer"
                 >
                   {saveUrlSuccess ? '✓ Đã Lưu!' : 'Lưu URL'}
                 </button>
               </div>
               {appsScriptUrl && (
-                <div className="text-[11px] text-emerald-400 flex items-center gap-1">
+                <div className="text-[11px] text-emerald-700 flex items-center gap-1 font-medium">
                   <Check className="w-3.5 h-3.5" />
                   <span>Đã kết nối! Khi khách gửi form, dữ liệu sẽ tự động đổ về Google Sheets của bạn.</span>
                 </div>
@@ -286,44 +286,44 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </div>
 
             {/* 1-Click Copy Code */}
-            <div className="p-3.5 rounded-xl bg-black/60 border border-amber-500/30 space-y-2">
+            <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-300">
+                <span className="text-xs font-bold text-amber-900">
                   2. Mã nguồn Apps Script (Tự lưu Sheets & Gửi Email xác nhận):
                 </span>
                 <button
                   type="button"
                   onClick={handleCopyAppsScriptCode}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-500 text-stone-950 font-bold text-xs shadow hover:from-amber-300 hover:to-yellow-400 transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
                 >
                   {copiedScriptSuccess ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-stone-950" />
+                      <Check className="w-3.5 h-3.5" />
                       <span>Đã sao chép Code!</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>Sao Chép Toàn Bộ Mã Apps Script</span>
+                      <span>Sao Chép Toàn Bộ Mã</span>
                     </>
                   )}
                 </button>
               </div>
 
               {/* Code Preview Box */}
-              <div className="relative max-h-48 overflow-y-auto rounded-lg bg-[#140204] p-3 text-[11px] font-mono text-amber-100/90 border border-amber-500/20 leading-relaxed whitespace-pre select-all">
+              <div className="relative max-h-48 overflow-y-auto rounded-lg bg-slate-900 p-3 text-[11px] font-mono text-amber-200 border border-slate-800 leading-relaxed whitespace-pre select-all">
                 {APPS_SCRIPT_CODE_TEMPLATE}
               </div>
             </div>
 
             {/* Step-by-step instructions */}
-            <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 text-[11px] text-stone-300 space-y-1.5">
-              <div className="font-bold text-amber-300 text-xs">Các bước cài đặt cực kỳ đơn giản (2 phút):</div>
-              <div><strong>Bước 1:</strong> Mở <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-emerald-400 underline inline-flex items-center gap-0.5">Google Sheets mới <ExternalLink className="w-2.5 h-2.5" /></a> (Đặt tên: <em>Đặt Tiệc Tuyến Ly</em>).</div>
+            <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
+              <div className="font-bold text-slate-900 text-xs">Các bước cài đặt cực kỳ đơn giản (2 phút):</div>
+              <div><strong>Bước 1:</strong> Mở <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-emerald-700 font-bold underline inline-flex items-center gap-0.5">Google Sheets mới <ExternalLink className="w-2.5 h-2.5" /></a> (Đặt tên: <em>Đặt Tiệc Tuyến Ly</em>).</div>
               <div><strong>Bước 2:</strong> Vào menu <strong>Tiện ích mở rộng (Extensions)</strong> → chọn <strong>Apps Script</strong>.</div>
               <div><strong>Bước 3:</strong> Xóa code mặc định, dán toàn bộ đoạn code vừa sao chép ở trên vào và bấm <strong>Lưu (Save)</strong>.</div>
               <div><strong>Bước 4:</strong> Bấm <strong>Triển khai (Deploy)</strong> → <strong>Tùy chọn triển khai mới (New deployment)</strong>:
-                <ul className="list-disc pl-4 pt-1 space-y-0.5 text-stone-400">
+                <ul className="list-disc pl-4 pt-1 space-y-0.5 text-slate-500">
                   <li>Loại: chọn <strong>Ứng dụng web (Web app)</strong></li>
                   <li>Thực thi dưới dạng: <strong>Tôi (Me)</strong></li>
                   <li>Ai có quyền truy cập: chọn <strong>Bất kỳ ai (Anyone)</strong></li>
@@ -334,16 +334,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           </div>
         ) : showLeadManager ? (
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-amber-500/20">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
               <div className="flex items-center gap-2">
-                <Database className="w-5 h-5 text-amber-400" />
-                <h3 className="text-lg font-bold text-amber-200">
+                <Database className="w-5 h-5 text-red-600" />
+                <h3 className="text-lg font-bold text-slate-900">
                   Dữ Liệu Khách Hàng Đã Thu Thập ({savedLeads.length})
                 </h3>
               </div>
               <button
                 onClick={() => setShowLeadManager(false)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-800 text-stone-200 hover:text-white"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200 cursor-pointer"
               >
                 ← Quay lại Form
               </button>
@@ -352,11 +352,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={handleCopyAllGmails}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold hover:bg-amber-500/30 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-semibold hover:bg-red-100 transition-colors cursor-pointer"
               >
                 {copiedEmailsSuccess ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Đã sao chép tất cả Gmail!</span>
                   </>
                 ) : (
@@ -369,7 +369,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               <button
                 onClick={handleExportCSV}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600/30 border border-emerald-400/40 text-emerald-200 text-xs font-semibold hover:bg-emerald-600/40 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Xuất file Excel/CSV</span>
@@ -378,28 +378,28 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             <div className="max-h-80 overflow-y-auto space-y-2 pr-1">
               {savedLeads.length === 0 ? (
-                <div className="p-6 text-center text-xs text-stone-400 bg-black/40 rounded-xl">
+                <div className="p-6 text-center text-xs text-slate-500 bg-stone-50 rounded-xl">
                   Chưa có thông tin khách hàng nào được gửi.
                 </div>
               ) : (
                 savedLeads.map((lead) => (
                   <div
                     key={lead.id}
-                    className="p-3 rounded-xl bg-black/50 border border-amber-500/20 text-xs space-y-1"
+                    className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs space-y-1 shadow-2xs"
                   >
-                    <div className="flex items-center justify-between text-amber-300 font-bold">
+                    <div className="flex items-center justify-between text-slate-900 font-bold">
                       <span>{lead.fullName || 'Khách hàng'} - {lead.phone}</span>
-                      <span className="text-[10px] text-stone-400">{lead.createdAt}</span>
+                      <span className="text-[10px] text-slate-400">{lead.createdAt}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-amber-100 font-medium">
-                      <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-red-700 font-medium">
+                      <Mail className="w-3.5 h-3.5 text-red-600 shrink-0" />
                       <span><strong>Gmail:</strong> {lead.email || '<Chưa điền>'}</span>
                     </div>
-                    <div className="text-stone-300 text-[11px]">
+                    <div className="text-slate-600 text-[11px]">
                       {lead.eventType} · {lead.tableCount} bàn · {lead.location}
                     </div>
                     {lead.notes && (
-                      <div className="text-[10px] text-stone-400 italic">
+                      <div className="text-[10px] text-slate-500 italic">
                         Ghi chú: {lead.notes}
                       </div>
                     )}
@@ -412,19 +412,19 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div>
             {/* Header */}
             <div className="text-center mb-6">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40 uppercase tracking-wider inline-block mb-2">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-200 uppercase tracking-wider inline-block mb-2 shadow-2xs">
                 TUYẾN LY · CHỊ LY 0935 777 205
               </span>
-              <h3 className="text-2xl sm:text-3xl font-serif-display font-black text-amber-100">
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900">
                 ĐẶT TIỆC & BÁO GIÁ NGAY
               </h3>
-              <p className="text-xs sm:text-sm text-stone-300 mt-1">
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 Điền thông tin bên dưới để nhận bảng báo giá chi tiết và ưu đãi giữ ngày tốt nhất!
               </p>
             </div>
 
             {errorMessage && (
-              <div className="mb-4 p-3 rounded-xl bg-red-900/60 border border-red-500 text-xs text-red-200">
+              <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-300 text-xs text-red-700">
                 {errorMessage}
               </div>
             )}
@@ -433,7 +433,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Họ tên */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1">
+                  <label className="block text-slate-800 font-semibold mb-1">
                     Họ và tên của quý khách:
                   </label>
                   <input
@@ -442,14 +442,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     placeholder="Ví dụ: Anh Hoàng / Chị Thảo"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white placeholder-stone-500 focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 placeholder-stone-400 focus:outline-none focus:border-red-600 focus:bg-white"
                   />
                 </div>
 
                 {/* Số điện thoại */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1">
-                    Số điện thoại liên hệ <span className="text-red-400">*</span>:
+                  <label className="block text-slate-800 font-semibold mb-1">
+                    Số điện thoại liên hệ <span className="text-red-500">*</span>:
                   </label>
                   <input
                     type="tel"
@@ -457,53 +457,53 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     placeholder="Ví dụ: 0935 xxx xxx"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white placeholder-stone-500 focus:outline-none focus:border-amber-400 font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 placeholder-stone-400 focus:outline-none focus:border-red-600 focus:bg-white font-bold"
                   />
                 </div>
               </div>
 
               {/* Gmail khách hàng để thu thập */}
               <div>
-                <label className="block text-amber-200 font-semibold mb-1 flex items-center justify-between">
+                <label className="block text-slate-800 font-semibold mb-1 flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
-                    <Mail className="w-4 h-4 text-amber-400" />
+                    <Mail className="w-4 h-4 text-red-600" />
                     <span>Gmail / Email khách hàng (Nhận báo giá & thực đơn):</span>
                   </span>
-                  <span className="text-[10px] text-amber-300/80 font-normal">Thu thập thông tin báo giá</span>
+                  <span className="text-[10px] text-slate-500 font-normal">Thu thập thông tin báo giá</span>
                 </label>
                 <input
                   type="email"
                   placeholder="Ví dụ: nguyenvana@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white placeholder-stone-500 focus:outline-none focus:border-amber-400 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 placeholder-stone-400 focus:outline-none focus:border-red-600 focus:bg-white font-medium"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Ngày tổ chức */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1 flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-slate-800 font-semibold mb-1 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-red-600" />
                     <span>Ngày tổ chức tiệc:</span>
                   </label>
                   <input
                     type="date"
                     value={formData.eventDate}
                     onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
                   />
                 </div>
 
                 {/* Loại tiệc */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1">
+                  <label className="block text-slate-800 font-semibold mb-1">
                     Loại hình sự kiện:
                   </label>
                   <select
                     value={formData.eventType}
                     onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
                   >
                     <option value="Tiệc Cưới">Tiệc Cưới (Đám cưới)</option>
                     <option value="Lễ Đính Hôn - Đám Hỏi">Lễ Đính Hôn - Đám Hỏi</option>
@@ -519,8 +519,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Số lượng bàn */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1 flex items-center gap-1.5">
-                    <Users className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-slate-800 font-semibold mb-1 flex items-center gap-1.5">
+                    <Users className="w-3.5 h-3.5 text-red-600" />
                     <span>Dự kiến số bàn:</span>
                   </label>
                   <input
@@ -529,14 +529,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     max="150"
                     value={formData.tableCount}
                     onChange={(e) => setFormData({ ...formData, tableCount: Number(e.target.value) })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
                   />
                 </div>
 
                 {/* Địa chỉ tổ chức */}
                 <div>
-                  <label className="block text-amber-200 font-semibold mb-1 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-slate-800 font-semibold mb-1 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-red-600" />
                     <span>Khu vực tổ chức:</span>
                   </label>
                   <input
@@ -544,14 +544,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     placeholder="VD: TT. Chợ Chùa, Hành Trung, v.v."
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
                   />
                 </div>
               </div>
 
               {/* Dịch vụ quan tâm */}
               <div>
-                <label className="block text-amber-200 font-semibold mb-2">
+                <label className="block text-slate-800 font-semibold mb-2">
                   Dịch vụ cần Tuyến Ly phục vụ:
                 </label>
                 <div className="grid grid-cols-2 gap-2 text-xs">
@@ -567,17 +567,17 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     return (
                       <label
                         key={serviceName}
-                        className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
+                        className={`flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer transition-colors ${
                           checked
-                            ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-semibold'
-                            : 'bg-black/40 border-stone-800 text-stone-300'
+                            ? 'bg-red-50 border-red-300 text-red-800 font-semibold'
+                            : 'bg-stone-50 border-stone-200 text-slate-700 hover:bg-stone-100'
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={checked}
                           onChange={() => handleServiceToggle(serviceName)}
-                          className="rounded accent-amber-400"
+                          className="rounded accent-red-600 w-4 h-4 cursor-pointer"
                         />
                         <span>{serviceName}</span>
                       </label>
@@ -588,7 +588,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               {/* Ghi chú */}
               <div>
-                <label className="block text-amber-200 font-semibold mb-1">
+                <label className="block text-slate-800 font-semibold mb-1">
                   Ghi chú món ăn yêu thích hoặc yêu cầu riêng:
                 </label>
                 <textarea
@@ -596,7 +596,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   placeholder="Ví dụ: Cần nhiều gà bó xôi và lẩu cá bớp, gia đình thích ăn lạt vừa phải..."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl bg-black/50 border border-amber-500/30 text-white placeholder-stone-500 focus:outline-none focus:border-amber-400"
+                  className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-300 text-slate-900 placeholder-stone-400 focus:outline-none focus:border-red-600 focus:bg-white"
                 />
               </div>
 
@@ -604,28 +604,28 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl font-black text-sm uppercase tracking-wider text-stone-950 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 hover:from-amber-200 hover:to-yellow-300 shadow-xl shadow-amber-500/30 transition-transform active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wider text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md transition-transform active:scale-95 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span>GỬI YÊU CẦU ĐẶT TIỆC NGAY</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-stone-400 pt-1">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 pt-1">
                 <span>Chị Ly cam kết bảo mật thông tin!</span>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => setShowAppsScriptSetup(true)}
-                    className="text-emerald-400 hover:text-white underline flex items-center gap-1 font-semibold"
+                    className="text-emerald-700 hover:text-emerald-800 underline flex items-center gap-1 font-semibold cursor-pointer"
                   >
-                    <FileSpreadsheet className="w-3 h-3" />
+                    <FileSpreadsheet className="w-3.5 h-3.5" />
                     <span>Lưu vào Google Sheets</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowLeadManager(true)}
-                    className="text-amber-400 hover:text-white underline"
+                    className="text-red-700 hover:text-red-800 underline cursor-pointer"
                   >
                     Xem dữ liệu ({savedLeads.length})
                   </button>
@@ -636,29 +636,29 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         ) : (
           /* Success Screen */
           <div className="py-5 text-center space-y-4 animate-in zoom-in-95">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 border-2 border-emerald-500 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
               <CheckCircle2 className="w-10 h-10" />
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-widest text-amber-400 font-bold block mb-1">
+              <span className="text-xs uppercase tracking-widest text-emerald-700 font-bold block mb-1">
                 GỬI YÊU CẦU THÀNH CÔNG · ĐÃ LƯU GOOGLE SHEETS
               </span>
-              <h3 className="text-2xl sm:text-3xl font-serif-display font-black text-amber-100">
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900">
                 Chúc Mừng Quý Khách!
               </h3>
-              <p className="text-xs sm:text-sm text-stone-200 mt-1.5 leading-relaxed max-w-md mx-auto">
-                <strong>Chị Ly – Chủ cơ sở Tuyến Ly</strong> đã nhận được thông tin tiệc <strong>{formData.eventType}</strong> ({formData.tableCount} bàn) và sẽ liên hệ qua số <strong className="text-amber-300">{formData.phone}</strong> trong ít phút!
+              <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed max-w-md mx-auto">
+                <strong>Chị Ly – Chủ cơ sở Tuyến Ly</strong> đã nhận được thông tin tiệc <strong>{formData.eventType}</strong> ({formData.tableCount} bàn) và sẽ liên hệ qua số <strong className="text-red-700">{formData.phone}</strong> trong ít phút!
               </p>
             </div>
 
             {/* Email Notice Box */}
             {formData.email && (
-              <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/40 text-xs text-amber-200 text-left flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 text-left flex items-start gap-2.5">
+                <Mail className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-amber-300">Đã gửi email xác nhận tới: {formData.email}</div>
-                  <div className="text-[11px] text-stone-300 mt-0.5">
+                  <div className="font-bold text-amber-900">Đã gửi email xác nhận tới: {formData.email}</div>
+                  <div className="text-[11px] text-amber-800 mt-0.5">
                     Quý khách vui lòng mở Gmail (kiểm tra cả mục <strong>Hộp thư đến</strong> và <strong>Thư rác/Spam</strong>) để xem chi tiết báo giá và thực đơn tiệc!
                   </div>
                 </div>
@@ -666,34 +666,34 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             )}
 
             {/* Full Booking Summary Box */}
-            <div className="p-4 rounded-2xl bg-black/60 border border-amber-400/40 text-xs text-stone-200 max-w-md mx-auto space-y-1.5 text-left">
-              <div className="text-[11px] uppercase font-bold text-amber-400 border-b border-amber-500/20 pb-1 mb-2">
+            <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-slate-700 max-w-md mx-auto space-y-1.5 text-left shadow-2xs">
+              <div className="text-[11px] uppercase font-bold text-red-700 border-b border-stone-200 pb-1 mb-2">
                 TỔNG HỢP THÔNG TIN ĐÃ ĐĂNG KÝ:
               </div>
-              <div>✦ <strong>Người đặt:</strong> <span className="text-white">{formData.fullName || 'Quý khách'}</span></div>
-              <div>✦ <strong>Số điện thoại:</strong> <span className="text-amber-300 font-bold">{formData.phone}</span></div>
-              {formData.email && <div>✦ <strong>Gmail:</strong> <span className="text-amber-200">{formData.email}</span></div>}
+              <div>✦ <strong>Người đặt:</strong> <span className="text-slate-900 font-semibold">{formData.fullName || 'Quý khách'}</span></div>
+              <div>✦ <strong>Số điện thoại:</strong> <span className="text-red-700 font-bold">{formData.phone}</span></div>
+              {formData.email && <div>✦ <strong>Gmail:</strong> <span className="text-slate-900">{formData.email}</span></div>}
               <div>✦ <strong>Ngày tổ chức:</strong> {formData.eventDate || 'Theo lịch gia đình'}</div>
               <div>✦ <strong>Loại tiệc:</strong> {formData.eventType} · {formData.tableCount} bàn (~{formData.tableCount * 10} khách)</div>
               <div>✦ <strong>Địa điểm:</strong> {formData.location}</div>
               <div>✦ <strong>Dịch vụ đã chọn:</strong> {formData.services.join(', ')}</div>
-              {formData.notes && <div>✦ <strong>Ghi chú:</strong> <em className="text-stone-300">{formData.notes}</em></div>}
+              {formData.notes && <div>✦ <strong>Ghi chú:</strong> <em className="text-slate-600">{formData.notes}</em></div>}
             </div>
 
             {/* ZALO DIRECT CHAT WITH CHI LY (0935 777 205) */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-[#004fbb]/40 via-[#0068ff]/30 to-[#004fbb]/40 border-2 border-[#0068ff] shadow-xl text-center space-y-2.5">
-              <div className="text-xs sm:text-sm font-black text-amber-300 flex items-center justify-center gap-1.5">
-                <MessageCircle className="w-4 h-4 text-white" />
+            <div className="p-4 rounded-2xl bg-blue-50/70 border-2 border-[#0068ff] shadow-sm text-center space-y-2.5">
+              <div className="text-xs sm:text-sm font-black text-blue-900 flex items-center justify-center gap-1.5">
+                <MessageCircle className="w-4 h-4 text-[#0068ff]" />
                 <span>NHẮN TIN ZALO RIÊNG VỚI CHỊ LY: 0935 777 205</span>
               </div>
-              <p className="text-[11px] text-stone-200 leading-snug">
+              <p className="text-[11px] text-slate-600 leading-snug">
                 Bấm vào nút bên dưới để mở Zalo riêng tư của Chị Ly trao đổi thực đơn và nhận báo giá ưu đãi nhanh nhất:
               </p>
               <a
                 href={BRAND_INFO.zaloUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0068ff] hover:bg-[#0055d4] shadow-lg shadow-blue-500/30 transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0068ff] hover:bg-[#0055d4] shadow-md transition-all active:scale-95 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 text-white" />
                 <span>MỞ ZALO NHẮN CHỊ LY NGAY (0935 777 205) →</span>
@@ -704,7 +704,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1">
               <a
                 href={`tel:${BRAND_INFO.hotline1Raw}`}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-400 to-yellow-500 text-stone-950 flex items-center justify-center gap-1.5 shadow"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 flex items-center justify-center gap-1.5 shadow-2xs"
               >
                 <Phone className="w-3.5 h-3.5" />
                 <span>Gọi Chị Ly: {BRAND_INFO.hotline1}</span>
@@ -712,14 +712,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               <button
                 onClick={() => setShowLeadManager(true)}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl font-semibold text-xs bg-stone-900 border border-amber-400/30 text-amber-300 hover:text-white"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl font-semibold text-xs bg-stone-100 hover:bg-stone-200 text-slate-700 cursor-pointer"
               >
                 Xem dữ liệu ({savedLeads.length})
               </button>
 
               <button
                 onClick={onClose}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl font-semibold text-xs border border-stone-700 text-stone-300 hover:text-white"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl font-semibold text-xs border border-stone-300 text-slate-700 hover:bg-stone-50 cursor-pointer"
               >
                 Đóng
               </button>
@@ -730,4 +730,3 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     </div>
   );
 };
-
