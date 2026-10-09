@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-brand: 'Cinzel', 'Playfair Display', serif;
+  --font-brand: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer base {

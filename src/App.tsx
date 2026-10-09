@@ -6,6 +6,7 @@ import { PartyCostCalculator } from './components/PartyCostCalculator';
 import { WeddingServicesSection } from './components/WeddingServicesSection';
 import { VehicleSection } from './components/VehicleSection';
 import { CommitmentAndReviews } from './components/CommitmentAndReviews';
+import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 import { FloatingContactBar } from './components/FloatingContactBar';
 import { BookingModal } from './components/BookingModal';
@@ -91,7 +92,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fbfaf8] text-slate-800 flex flex-col font-sans selection:bg-red-600 selection:text-white">
+    <div className="min-h-screen bg-[#fbfaf8] text-slate-800 flex flex-col font-sans selection:bg-red-600 selection:text-white pb-20 lg:pb-0">
       {/* Header with quick links & hotlines */}
       <Header
         onOpenBooking={handleOpenBooking}
@@ -133,6 +134,11 @@ export default function App() {
 
         {/* About Chị Ly, Golden Commitments & Reviews */}
         <CommitmentAndReviews
+          onOpenBooking={handleOpenBooking}
+        />
+
+        {/* Vị trí & Bản đồ chỉ đường Google Maps */}
+        <LocationSection
           onOpenBooking={handleOpenBooking}
         />
       </main>

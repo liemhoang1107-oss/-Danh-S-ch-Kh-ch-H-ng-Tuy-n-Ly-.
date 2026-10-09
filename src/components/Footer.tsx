@@ -45,9 +45,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onNavigateSection
                 <Award className="w-4 h-4 text-amber-400 shrink-0" />
                 <span><strong>Đại diện:</strong> {BRAND_INFO.owner}</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-200">
-                <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
-                <span><strong>Địa chỉ:</strong> {BRAND_INFO.address}</span>
+              <div 
+                onClick={() => onNavigateSection('vi-tri')}
+                className="flex items-center gap-2 text-slate-200 hover:text-amber-300 cursor-pointer transition-colors group"
+                title="Xem bản đồ vị trí"
+              >
+                <MapPin className="w-4 h-4 text-amber-400 shrink-0 group-hover:scale-110 transition-transform" />
+                <span><strong>Địa chỉ:</strong> {BRAND_INFO.address} (Xem bản đồ ↗)</span>
               </div>
               <div className="flex items-center gap-2 text-slate-200">
                 <Clock className="w-4 h-4 text-amber-400 shrink-0" />
@@ -97,6 +101,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onNavigateSection
                 className="hover:text-white cursor-pointer flex items-center gap-1.5 transition-colors"
               >
                 <span>✦ Xe 7 - 16 - 29 - 45 chỗ đưa đón hai họ</span>
+              </li>
+              <li 
+                onClick={() => onNavigateSection('vi-tri')}
+                className="text-amber-400 hover:text-amber-300 font-semibold cursor-pointer flex items-center gap-1.5 transition-colors pt-1"
+              >
+                <span>📍 Xem bản đồ & vị trí cơ sở</span>
               </li>
             </ul>
           </div>

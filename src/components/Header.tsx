@@ -16,6 +16,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
     { label: 'Xe Du Lịch', sectionId: 'xe-du-lich', icon: Car },
     { label: 'Dự Toán Chi Phí', sectionId: 'du-toan', icon: Calculator },
     { label: 'Về Chị Ly', sectionId: 'cam-ket', icon: Heart },
+    { label: 'Vị Trí Bản Đồ', sectionId: 'vi-tri', icon: MapPin },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -28,10 +29,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onNavigateSection
       {/* 1. Top Bar: Tinh gọn 1 dòng duy nhất, trang nhã */}
       <div className="bg-gradient-to-r from-red-800 via-rose-900 to-red-800 py-1.5 px-4 text-[11px] sm:text-xs text-rose-100 border-b border-red-700/50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-          {/* Địa chỉ */}
-          <div className="flex items-center gap-1.5 truncate text-rose-100">
-            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-            <span className="truncate">Phù Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</span>
+          {/* Địa chỉ - click để cuộn tới bản đồ */}
+          <div 
+            onClick={() => handleNavClick('vi-tri')}
+            className="flex items-center gap-1.5 truncate text-rose-100 hover:text-amber-200 cursor-pointer transition-colors group"
+            title="Nhấn để xem bản đồ chỉ đường"
+          >
+            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0 group-hover:scale-110 transition-transform" />
+            <span className="truncate group-hover:underline">Phú Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</span>
           </div>
 
           {/* Hotline & Phục vụ */}

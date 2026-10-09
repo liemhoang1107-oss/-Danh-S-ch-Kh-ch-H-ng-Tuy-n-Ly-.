@@ -6,7 +6,7 @@ export const APPS_SCRIPT_CODE_TEMPLATE = `/**
  * GOOGLE APPS SCRIPT - TỰ ĐỘNG LƯU DATA VÀO GOOGLE SHEETS & GỬI EMAIL XÁC NHẬN
  * Dịch Vụ Nấu Ăn – Xe Du Lịch – Cưới Hỏi Trọn Gói TUYẾN LY
  * Hotline: 0935 777 205 - 0938 630 909
- * Địa chỉ: Phù Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi
+ * Địa chỉ: Phú Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi
  */
 
 function doPost(e) {
@@ -143,7 +143,7 @@ function sendConfirmationEmail(email, fullName, phone, eventDate, eventType, tab
       '</div>' +
 
       '<div style="border-top: 1px solid #440d16; padding-top: 18px; font-size: 12px; color: #c4b5b7; line-height: 1.6;">' +
-        '<p style="margin: 3px 0;">📍 <strong>Địa chỉ cơ sở:</strong> Phù Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</p>' +
+        '<p style="margin: 3px 0;">📍 <strong>Địa chỉ cơ sở:</strong> Phú Vinh Đông, TT. Chợ Chùa, Nghĩa Hành, Quảng Ngãi</p>' +
         '<p style="margin: 3px 0;">☎️ <strong>Hotline 24/7:</strong> 0935 777 205 – 0938 630 909</p>' +
         '<p style="margin: 3px 0;">🍲 <strong>Cam kết:</strong> 100% nguyên liệu tươi sạch · Nóng sốt tại chỗ · Rạp cưới nhung sang trọng · Xe rước dâu 4–45 chỗ</p>' +
       '</div>' +
