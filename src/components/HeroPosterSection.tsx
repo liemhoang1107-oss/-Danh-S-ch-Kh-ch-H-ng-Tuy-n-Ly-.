@@ -15,21 +15,25 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
 }) => {
   const [selectedPreviewTab, setSelectedPreviewTab] = useState<'all' | 'rap' | 'amthuc'>('all');
 
-  // 10 Featured Dishes balanced into 2 equal columns of 5 dishes each
+  // 14 Featured Dishes balanced into 2 equal columns of 7 dishes each
   const column1Dishes = [
     { name: 'Khai vị ngũ sắc / Tứ quý', id: 'khai-vi-ngu-sac', category: 'Khai vị' },
-    { name: 'Gà bó xôi / Gà lên mâm', id: 'ga-bo-xoi', category: 'Món chính' },
-    { name: 'Bò nhúng dấm / Bò tái', id: 'bo-nhung-dam', category: 'Món chính' },
-    { name: 'Lagu bò + Bánh mì', id: 'lagu-bo', category: 'Món chính' },
-    { name: 'Lẩu hải sản / Lẩu cá bớp + Bún', id: 'lau-hai-san', category: 'Món lẩu' },
+    { name: 'Súp gà rau ngũ quả (Món mới)', id: 'sup-ga-ngu-qua', category: 'Khai vị' },
+    { name: 'Gỏi sứa đặc biệt', id: 'goi-sua-dac-biet', category: 'Gỏi đặc sản' },
+    { name: 'Gỏi ngó sen tôm', id: 'goi-ngo-sen-tom', category: 'Gỏi tiệc' },
+    { name: 'Gỏi hoa chuối', id: 'goi-hoa-chuoi', category: 'Gỏi quê' },
+    { name: 'Gà bó xôi hoàng kim', id: 'ga-bo-xoi', category: 'Món chính' },
+    { name: 'Tôm sú hấp trái dừa', id: 'tom-su-hap-dua', category: 'Hải sản' },
   ];
 
   const column2Dishes = [
-    { name: 'Căn bi hỷ', id: 'can-bi-hy', category: 'Món hỷ' },
-    { name: 'Gỏi sing sảm', id: 'goi-sing-sam', category: 'Gỏi đặc sản' },
-    { name: 'Gỏi ngó sen tôm', id: 'goi-ngo-sen-tom', category: 'Gỏi tiệc' },
-    { name: 'Gỏi hoa chuối', id: 'goi-hoa-chuoi', category: 'Gỏi quê' },
-    { name: 'Tráng miệng trái cây', id: 'trang-mieng-trai-cay', category: 'Tráng miệng' },
+    { name: 'Bánh hỏi thịt heo quay (Món mới)', id: 'banh-hoi-heo-quay', category: 'Món chính' },
+    { name: 'Bò nhúng dấm', id: 'bo-nhung-dam', category: 'Món chính' },
+    { name: 'Bò tái chanh (Món mới)', id: 'bo-tai-chanh', category: 'Món chính' },
+    { name: 'Lagu bò + Bánh mì', id: 'lagu-bo', category: 'Món chính' },
+    { name: 'Lẩu cá bớp + Bún', id: 'lau-ca-bop', category: 'Món lẩu' },
+    { name: 'Lẩu hải sản thập cẩm', id: 'lau-hai-san', category: 'Món lẩu' },
+    { name: 'Tráng miệng trái cây 4 mùa', id: 'trang-mieng-trai-cay', category: 'Tráng miệng' },
   ];
 
   const handleDishClick = (dishId: string) => {
@@ -260,7 +264,7 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                         : 'text-stone-300 hover:text-white'
                     }`}
                   >
-                    Món Tiệc
+                    Món Tiệc (12 Món Thật)
                   </button>
                 </div>
               </div>
@@ -338,15 +342,15 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
 
                     {/* Bottom Row: Seafood Platter & Full Banquet Table */}
                     <div className="grid grid-cols-2 gap-2.5">
-                      {/* Photo 3: Tôm sú tươi & Cá bớp phi lê */}
+                      {/* Photo 3: Lẩu cá bớp */}
                       <div 
-                        onClick={() => handleDishClick('lau-hai-san')}
+                        onClick={() => handleDishClick('lau-ca-bop')}
                         className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
                         title="Xem chi tiết món Lẩu cá bớp"
                       >
                         <img
-                          src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80"
-                          alt="Tôm sú tươi & cá bớp phi lê"
+                          src="https://i.ibb.co/G40r8ysk/IMG-5906.jpg"
+                          alt="Lẩu cá bớp Tuyến Ly"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -355,21 +359,21 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                         </div>
                         <div className="absolute bottom-1.5 left-2 right-2 text-left">
                           <span className="text-[11px] font-bold text-amber-200 block truncate">
-                            Lẩu Cá Bớp & Tôm Sú
+                            Lẩu Cá Bớp
                           </span>
-                          <span className="text-[9px] text-stone-300">Tươi sống trong ngày</span>
+                          <span className="text-[9px] text-stone-300">Tươi sống nóng sốt</span>
                         </div>
                       </div>
 
-                      {/* Photo 4: Mâm cỗ tiệc cưới hoàn chỉnh */}
+                      {/* Photo 4: Gà bó xôi */}
                       <div 
                         onClick={() => handleDishClick('ga-bo-xoi')}
                         className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
                         title="Xem chi tiết món Gà bó xôi"
                       >
                         <img
-                          src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80"
-                          alt="Mâm cỗ tiệc cưới Tuyến Ly đầy đặn hấp dẫn"
+                          src="https://i.ibb.co/5xh5LPL6/IMG-5908.jpg"
+                          alt="Gà bó xôi hoàng kim Tuyến Ly"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -378,9 +382,9 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                         </div>
                         <div className="absolute bottom-1.5 left-2 right-2 text-left">
                           <span className="text-[11px] font-bold text-amber-200 block truncate">
-                            Gà Bó Xôi & Mâm Cỗ Tiệc
+                            Gà Bó Xôi Hoàng Kim
                           </span>
-                          <span className="text-[9px] text-stone-300">Nóng hổi · Chuẩn vị</span>
+                          <span className="text-[9px] text-stone-300">Giòn rụm · Đậm đà</span>
                         </div>
                       </div>
                     </div>
@@ -448,78 +452,268 @@ export const HeroPosterSection: React.FC<HeroPosterSectionProps> = ({
                   </div>
                 )}
 
-                {/* 3. View: MÓN TIỆC THỰC TẾ */}
+                {/* 3. View: MÓN TIỆC THỰC TẾ (12 Món thật theo hình ảnh thực tế của Chị Ly Tuyến Ly) */}
                 {selectedPreviewTab === 'amthuc' && (
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {/* Food 1: Lẩu cá bớp */}
-                    <div 
-                      onClick={() => handleDishClick('lau-hai-san')}
-                      className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80"
-                        alt="Lẩu cá bớp"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2 text-left">
-                        <span className="text-xs font-bold text-amber-200 block">Lẩu Cá Bớp + Bún</span>
-                        <span className="text-[10px] text-stone-300">Chua thanh đậm đà</span>
-                      </div>
+                  <div>
+                    <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-amber-400/20 text-xs px-0.5">
+                      <span className="text-amber-200 font-bold flex items-center gap-1.5 text-xs sm:text-[13px]">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                        12 Món Tiệc Thực Tế Tuyến Ly
+                      </span>
+                      <span className="text-[10px] text-amber-300/80 italic hidden sm:inline">Chạm để phóng to xem chi tiết</span>
                     </div>
 
-                    {/* Food 2: Gà bó xôi */}
-                    <div 
-                      onClick={() => handleDishClick('ga-bo-xoi')}
-                      className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80"
-                        alt="Gà bó xôi"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2 text-left">
-                        <span className="text-xs font-bold text-amber-200 block">Gà Bó Xôi Hoàng Kim</span>
-                        <span className="text-[10px] text-stone-300">Xôi giòn phồng, gà ngọt</span>
+                    <div className="grid grid-cols-2 gap-2 max-h-[380px] sm:max-h-[420px] overflow-y-auto pr-1">
+                      {/* Food 1: Lẩu cá bớp */}
+                      <div 
+                        onClick={() => handleDishClick('lau-ca-bop')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Lẩu cá bớp"
+                      >
+                        <img
+                          src="https://i.ibb.co/G40r8ysk/IMG-5906.jpg"
+                          alt="Lẩu cá bớp Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Lẩu Cá Bớp</span>
+                          <span className="text-[9px] text-stone-300">Nóng hổi · Chua cay</span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Food 3: Lagu bò + Bánh mì */}
-                    <div 
-                      onClick={() => handleDishClick('lagu-bo')}
-                      className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=600&q=80"
-                        alt="Lagu bò"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2 text-left">
-                        <span className="text-xs font-bold text-amber-200 block">Lagu Bò + Bánh Mì</span>
-                        <span className="text-[10px] text-stone-300">Sốt vang sánh mịn</span>
+                      {/* Food 2: Tôm Sú */}
+                      <div 
+                        onClick={() => handleDishClick('tom-su-hap-dua')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Tôm Sú"
+                      >
+                        <img
+                          src="https://i.ibb.co/LMdGh7F/IMG-5907.jpg"
+                          alt="Tôm Sú Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Tôm Sú Hấp Dừa</span>
+                          <span className="text-[9px] text-stone-300">Tươi ngọt · Đỏ au</span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Food 4: Gỏi ngó sen tôm */}
-                    <div 
-                      onClick={() => handleDishClick('goi-ngo-sen-tom')}
-                      className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <img
-                        src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80"
-                        alt="Gỏi ngó sen tôm"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2 text-left">
-                        <span className="text-xs font-bold text-amber-200 block">Gỏi Ngó Sen Tôm Thịt</span>
-                        <span className="text-[10px] text-stone-300">Giòn ngọt chua thanh</span>
+                      {/* Food 3: Gà bó xôi */}
+                      <div 
+                        onClick={() => handleDishClick('ga-bo-xoi')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Gà bó xôi"
+                      >
+                        <img
+                          src="https://i.ibb.co/5xh5LPL6/IMG-5908.jpg"
+                          alt="Gà bó xôi Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Gà Bó Xôi Hoàng Kim</span>
+                          <span className="text-[9px] text-stone-300">Xôi giòn · Gà ngọt thịt</span>
+                        </div>
+                      </div>
+
+                      {/* Food 4: Khai vị ngũ sắc */}
+                      <div 
+                        onClick={() => handleDishClick('khai-vi-ngu-sac')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Khai vị ngũ sắc"
+                      >
+                        <img
+                          src="https://i.ibb.co/pr6mjSCT/IMG-5910.jpg"
+                          alt="Khai vị ngũ sắc Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Khai Vị Ngũ Sắc</span>
+                          <span className="text-[9px] text-stone-300">Mâm tiệc 5 món tinh tế</span>
+                        </div>
+                      </div>
+
+                      {/* Food 5: Bò tái chanh */}
+                      <div 
+                        onClick={() => handleDishClick('bo-tai-chanh')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Bò tái chanh"
+                      >
+                        <img
+                          src="https://i.ibb.co/21MLL88p/IMG-5911.jpg"
+                          alt="Bò tái chanh Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Bò Tái Chanh</span>
+                          <span className="text-[9px] text-stone-300">Mềm ngọt · Chua thanh mát</span>
+                        </div>
+                      </div>
+
+                      {/* Food 6: Bò nhúng dấm */}
+                      <div 
+                        onClick={() => handleDishClick('bo-nhung-dam')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Bò nhúng dấm"
+                      >
+                        <img
+                          src="https://i.ibb.co/5X3T0Gxr/IMG-5912.jpg"
+                          alt="Bò nhúng dấm Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Bò Nhúng Dấm</span>
+                          <span className="text-[9px] text-stone-300">Cuốn bánh tráng mắm nêm</span>
+                        </div>
+                      </div>
+
+                      {/* Food 7: Lagu bò + Bánh mì */}
+                      <div 
+                        onClick={() => handleDishClick('lagu-bo')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Lagu bò + Bánh mì"
+                      >
+                        <img
+                          src="https://i.ibb.co/bGqt6BG/IMG-5913.jpg"
+                          alt="Lagu bò bánh mì Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Lagu Bò + Bánh Mì</span>
+                          <span className="text-[9px] text-stone-300">Bò hầm mềm · Bánh mì giòn</span>
+                        </div>
+                      </div>
+
+                      {/* Food 8: Gỏi sứa đặc biệt */}
+                      <div 
+                        onClick={() => handleDishClick('goi-sua-dac-biet')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Gỏi sứa đặc biệt"
+                      >
+                        <img
+                          src="https://i.ibb.co/XMh6t7Z/IMG-5914.jpg"
+                          alt="Gỏi sứa đặc biệt Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Gỏi Sứa Đặc Biệt</span>
+                          <span className="text-[9px] text-stone-300">Giòn sần sật · Chua cay</span>
+                        </div>
+                      </div>
+
+                      {/* Food 9: Gỏi ngó sen tôm */}
+                      <div 
+                        onClick={() => handleDishClick('goi-ngo-sen-tom')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Gỏi ngó sen tôm"
+                      >
+                        <img
+                          src="https://i.ibb.co/gZCcff0v/IMG-5916.jpg"
+                          alt="Gỏi ngó sen tôm Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Gỏi Ngó Sen Tôm</span>
+                          <span className="text-[9px] text-stone-300">Trắng giòn · Tôm sú ngọt</span>
+                        </div>
+                      </div>
+
+                      {/* Food 10: Gỏi hoa chuối */}
+                      <div 
+                        onClick={() => handleDishClick('goi-hoa-chuoi')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Gỏi hoa chuối"
+                      >
+                        <img
+                          src="https://i.ibb.co/Nd0Hy7TN/IMG-5917.jpg"
+                          alt="Gỏi hoa chuối Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Gỏi Hoa Chuối</span>
+                          <span className="text-[9px] text-stone-300">Hoa chuối giòn · Gà xé phay</span>
+                        </div>
+                      </div>
+
+                      {/* Food 11: Bánh hỏi thịt heo quay */}
+                      <div 
+                        onClick={() => handleDishClick('banh-hoi-heo-quay')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Bánh hỏi thịt heo quay"
+                      >
+                        <img
+                          src="https://i.ibb.co/RTR3dFV6/IMG-5918.jpg"
+                          alt="Bánh hỏi thịt heo quay Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Bánh Hỏi Heo Quay</span>
+                          <span className="text-[9px] text-stone-300">Da giòn rụm · Mỡ hẹ thơm nức</span>
+                        </div>
+                      </div>
+
+                      {/* Food 12: Súp gà rau ngũ quả */}
+                      <div 
+                        onClick={() => handleDishClick('sup-ga-ngu-qua')}
+                        className="relative rounded-xl overflow-hidden border-2 border-amber-300/60 shadow-lg group aspect-[4/3] bg-stone-900 cursor-pointer"
+                        title="Xem chi tiết Súp gà rau ngũ quả"
+                      >
+                        <img
+                          src="https://i.ibb.co/0VVSsn6p/IMG-5920.webp"
+                          alt="Súp gà rau ngũ quả Tuyến Ly"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
+                        <div className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/60 text-amber-300">
+                          <Eye className="w-3 h-3" />
+                        </div>
+                        <div className="absolute bottom-1.5 left-2 right-2 text-left">
+                          <span className="text-[11px] sm:text-xs font-bold text-amber-200 block truncate">Súp Gà Rau Ngũ Quả</span>
+                          <span className="text-[9px] text-stone-300">Nóng hổi sánh mịn · Thanh ngọt</span>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -17,15 +17,12 @@ export default function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedDishModal, setSelectedDishModal] = useState<DishItem | null>(null);
   
-  // Custom picked dishes for the party builder (default with 4 poster staples)
-  const [customSelectedDishes, setCustomSelectedDishes] = useState<DishItem[]>([
-    POSTER_FEATURED_DISHES[0], // Khai vị ngũ sắc
-    POSTER_FEATURED_DISHES[1], // Gà bó xôi
-    POSTER_FEATURED_DISHES[2], // Bò nhúng dấm
-    POSTER_FEATURED_DISHES[3], // Lagu bò + Bánh mì
-    POSTER_FEATURED_DISHES[4], // Lẩu hải sản / Lẩu cá bớp
-    POSTER_FEATURED_DISHES[9], // Tráng miệng trái cây
-  ]);
+  // Custom picked dishes for the party builder (default with 6 signature poster dishes)
+  const [customSelectedDishes, setCustomSelectedDishes] = useState<DishItem[]>(() => {
+    const defaultIds = ['khai-vi-ngu-sac', 'ga-bo-xoi', 'bo-nhung-dam', 'lagu-bo', 'lau-ca-bop', 'trang-mieng-trai-cay'];
+    const selected = POSTER_FEATURED_DISHES.filter((d) => defaultIds.includes(d.id));
+    return selected.length > 0 ? selected : POSTER_FEATURED_DISHES.slice(0, 6);
+  });
 
   const [bookingPrefillData, setBookingPrefillData] = useState<{
     tableCount?: number;
