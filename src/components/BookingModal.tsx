@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Phone, MapPin, Users, CheckCircle2, Sparkles, MessageCircle, ArrowRight, Mail, Download, Database, Copy, Check, FileSpreadsheet, Settings, ExternalLink } from 'lucide-react';
+import { X, Calendar, Phone, MapPin, Users, CheckCircle2, MessageCircle, ArrowRight, Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { BRAND_INFO } from '../data/cateringData';
-import { APPS_SCRIPT_CODE_TEMPLATE } from '../data/appsScriptCode';
 
 export interface BookingFormData {
   fullName: string;
@@ -52,27 +51,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [showLeadManager, setShowLeadManager] = useState<boolean>(false);
-  const [showAppsScriptSetup, setShowAppsScriptSetup] = useState<boolean>(false);
-  const [appsScriptUrl, setAppsScriptUrl] = useState<string>(() => {
-    return localStorage.getItem('tuyen_ly_apps_script_url') || BRAND_INFO.appsScriptUrl;
-  });
-  const [savedLeads, setSavedLeads] = useState<SavedCustomerLead[]>([]);
-  const [copiedEmailsSuccess, setCopiedEmailsSuccess] = useState<boolean>(false);
-  const [copiedScriptSuccess, setCopiedScriptSuccess] = useState<boolean>(false);
-  const [saveUrlSuccess, setSaveUrlSuccess] = useState<boolean>(false);
 
-  // Load saved leads from localStorage
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('tuyen_ly_customer_leads');
-      if (stored) {
-        setSavedLeads(JSON.parse(stored));
-      }
-    } catch {
-      // ignore
-    }
-  }, [isOpen, isSubmitted]);
+  const appsScriptUrl =
+    (typeof window !== 'undefined' && localStorage.getItem('tuyen_ly_apps_script_url')) ||
+    BRAND_INFO.appsScriptUrl;
 
   // Sync initial data if passed from calculator
   useEffect(() => {
@@ -89,12 +71,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   }, [initialData]);
 
   if (!isOpen) return null;
-
-  const handleSaveAppsScriptUrl = () => {
-    localStorage.setItem('tuyen_ly_apps_script_url', appsScriptUrl.trim());
-    setSaveUrlSuccess(true);
-    setTimeout(() => setSaveUrlSuccess(false), 3000);
-  };
 
   const handleServiceToggle = (serviceName: string) => {
     setFormData((prev) => {
@@ -128,7 +104,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       );
       const updated = [newLead, ...existing];
       localStorage.setItem('tuyen_ly_customer_leads', JSON.stringify(updated));
-      setSavedLeads(updated);
     } catch {
       // ignore
     }
@@ -165,61 +140,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     }
   };
 
-  // Copy Google Apps Script code to clipboard
-  const handleCopyAppsScriptCode = () => {
-    navigator.clipboard.writeText(APPS_SCRIPT_CODE_TEMPLATE);
-    setCopiedScriptSuccess(true);
-    setTimeout(() => setCopiedScriptSuccess(false), 3000);
-  };
-
-  // Copy all collected Gmails to clipboard
-  const handleCopyAllGmails = () => {
-    const emails = savedLeads
-      .map((lead) => lead.email.trim())
-      .filter((email) => email.length > 0);
-
-    if (emails.length === 0) {
-      alert('Chưa có email nào trong danh sách thu thập!');
-      return;
-    }
-
-    navigator.clipboard.writeText(emails.join(', '));
-    setCopiedEmailsSuccess(true);
-    setTimeout(() => setCopiedEmailsSuccess(false), 3000);
-  };
-
-  // Export CSV
-  const handleExportCSV = () => {
-    if (savedLeads.length === 0) {
-      alert('Chưa có dữ liệu khách hàng để xuất!');
-      return;
-    }
-
-    const headers = ['Thời gian', 'Họ tên', 'Số điện thoại', 'Gmail / Email', 'Ngày tiệc', 'Loại tiệc', 'Số bàn', 'Khu vực', 'Dịch vụ', 'Ghi chú'];
-    const rows = savedLeads.map((l) => [
-      `"${l.createdAt}"`,
-      `"${l.fullName}"`,
-      `"${l.phone}"`,
-      `"${l.email}"`,
-      `"${l.eventDate}"`,
-      `"${l.eventType}"`,
-      `"${l.tableCount}"`,
-      `"${l.location}"`,
-      `"${l.services.join('; ')}"`,
-      `"${l.notes.replace(/"/g, '""')}"`,
-    ]);
-
-    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `danh_sach_khach_hang_tuyen_ly_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div
       className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in"
@@ -238,177 +158,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Google Apps Script Setup View */}
-        {showAppsScriptSetup ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
-              <div className="flex items-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
-                <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                  Cấu Hình Google Sheets & Mã Apps Script
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowAppsScriptSetup(false)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200 cursor-pointer"
-              >
-                ← Quay lại Form
-              </button>
-            </div>
-
-            {/* URL Input */}
-            <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2">
-              <label className="block text-xs font-bold text-emerald-900">
-                1. Dán đường link Web App URL Google Apps Script của bạn vào đây:
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  placeholder="https://script.google.com/macros/s/.../exec"
-                  value={appsScriptUrl}
-                  onChange={(e) => setAppsScriptUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-lg bg-white border border-stone-300 text-xs text-slate-900 placeholder-stone-400 focus:outline-none focus:border-emerald-600"
-                />
-                <button
-                  type="button"
-                  onClick={handleSaveAppsScriptUrl}
-                  className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 transition-colors cursor-pointer"
-                >
-                  {saveUrlSuccess ? '✓ Đã Lưu!' : 'Lưu URL'}
-                </button>
-              </div>
-              {appsScriptUrl && (
-                <div className="text-[11px] text-emerald-700 flex items-center gap-1 font-medium">
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Đã kết nối! Khi khách gửi form, dữ liệu sẽ tự động đổ về Google Sheets của bạn.</span>
-                </div>
-              )}
-            </div>
-
-            {/* 1-Click Copy Code */}
-            <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-900">
-                  2. Mã nguồn Apps Script (Tự lưu Sheets & Gửi Email xác nhận):
-                </span>
-                <button
-                  type="button"
-                  onClick={handleCopyAppsScriptCode}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
-                >
-                  {copiedScriptSuccess ? (
-                    <>
-                      <Check className="w-3.5 h-3.5" />
-                      <span>Đã sao chép Code!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Sao Chép Toàn Bộ Mã</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Code Preview Box */}
-              <div className="relative max-h-48 overflow-y-auto rounded-lg bg-slate-900 p-3 text-[11px] font-mono text-amber-200 border border-slate-800 leading-relaxed whitespace-pre select-all">
-                {APPS_SCRIPT_CODE_TEMPLATE}
-              </div>
-            </div>
-
-            {/* Step-by-step instructions */}
-            <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
-              <div className="font-bold text-slate-900 text-xs">Các bước cài đặt cực kỳ đơn giản (2 phút):</div>
-              <div><strong>Bước 1:</strong> Mở <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-emerald-700 font-bold underline inline-flex items-center gap-0.5">Google Sheets mới <ExternalLink className="w-2.5 h-2.5" /></a> (Đặt tên: <em>Đặt Tiệc Tuyến Ly</em>).</div>
-              <div><strong>Bước 2:</strong> Vào menu <strong>Tiện ích mở rộng (Extensions)</strong> → chọn <strong>Apps Script</strong>.</div>
-              <div><strong>Bước 3:</strong> Xóa code mặc định, dán toàn bộ đoạn code vừa sao chép ở trên vào và bấm <strong>Lưu (Save)</strong>.</div>
-              <div><strong>Bước 4:</strong> Bấm <strong>Triển khai (Deploy)</strong> → <strong>Tùy chọn triển khai mới (New deployment)</strong>:
-                <ul className="list-disc pl-4 pt-1 space-y-0.5 text-slate-500">
-                  <li>Loại: chọn <strong>Ứng dụng web (Web app)</strong></li>
-                  <li>Thực thi dưới dạng: <strong>Tôi (Me)</strong></li>
-                  <li>Ai có quyền truy cập: chọn <strong>Bất kỳ ai (Anyone)</strong></li>
-                </ul>
-              </div>
-              <div><strong>Bước 5:</strong> Bấm <strong>Triển khai (Deploy)</strong>, cấp quyền rồi sao chép đường link <strong>Web app URL</strong> dán vào ô số 1 ở trên!</div>
-            </div>
-          </div>
-        ) : showLeadManager ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
-              <div className="flex items-center gap-2">
-                <Database className="w-5 h-5 text-red-600" />
-                <h3 className="text-lg font-bold text-slate-900">
-                  Dữ Liệu Khách Hàng Đã Thu Thập ({savedLeads.length})
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowLeadManager(false)}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200 cursor-pointer"
-              >
-                ← Quay lại Form
-              </button>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={handleCopyAllGmails}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-semibold hover:bg-red-100 transition-colors cursor-pointer"
-              >
-                {copiedEmailsSuccess ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Đã sao chép tất cả Gmail!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Sao chép tất cả Gmail</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={handleExportCSV}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 transition-colors cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Xuất file Excel/CSV</span>
-              </button>
-            </div>
-
-            <div className="max-h-80 overflow-y-auto space-y-2 pr-1">
-              {savedLeads.length === 0 ? (
-                <div className="p-6 text-center text-xs text-slate-500 bg-stone-50 rounded-xl">
-                  Chưa có thông tin khách hàng nào được gửi.
-                </div>
-              ) : (
-                savedLeads.map((lead) => (
-                  <div
-                    key={lead.id}
-                    className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs space-y-1 shadow-2xs"
-                  >
-                    <div className="flex items-center justify-between text-slate-900 font-bold">
-                      <span>{lead.fullName || 'Khách hàng'} - {lead.phone}</span>
-                      <span className="text-[10px] text-slate-400">{lead.createdAt}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-red-700 font-medium">
-                      <Mail className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                      <span><strong>Gmail:</strong> {lead.email || '<Chưa điền>'}</span>
-                    </div>
-                    <div className="text-slate-600 text-[11px]">
-                      {lead.eventType} · {lead.tableCount} bàn · {lead.location}
-                    </div>
-                    {lead.notes && (
-                      <div className="text-[10px] text-slate-500 italic">
-                        Ghi chú: {lead.notes}
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        ) : !isSubmitted ? (
+        {!isSubmitted ? (
           <div>
             {/* Header */}
             <div className="text-center mb-6">
@@ -611,25 +361,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </button>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 pt-1">
-                <span>Chị Ly cam kết bảo mật thông tin!</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setShowAppsScriptSetup(true)}
-                    className="text-emerald-700 hover:text-emerald-800 underline flex items-center gap-1 font-semibold cursor-pointer"
-                  >
-                    <FileSpreadsheet className="w-3.5 h-3.5" />
-                    <span>Lưu vào Google Sheets</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowLeadManager(true)}
-                    className="text-red-700 hover:text-red-800 underline cursor-pointer"
-                  >
-                    Xem dữ liệu ({savedLeads.length})
-                  </button>
-                </div>
+              <div className="text-center text-[11px] text-slate-500 pt-1 flex items-center justify-center gap-1.5">
+                <span>🔒 Cơ sở Tuyến Ly cam kết bảo mật 100% thông tin của quý khách!</span>
               </div>
             </form>
           </div>
@@ -642,7 +375,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             <div>
               <span className="text-xs uppercase tracking-widest text-emerald-700 font-bold block mb-1">
-                GỬI YÊU CẦU THÀNH CÔNG · ĐÃ LƯU GOOGLE SHEETS
+                GỬI YÊU CẦU THÀNH CÔNG · ĐÃ TIẾP NHẬN BÁO GIÁ
               </span>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900">
                 Chúc Mừng Quý Khách!
@@ -709,13 +442,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <Phone className="w-3.5 h-3.5" />
                 <span>Gọi Chị Ly: {BRAND_INFO.hotline1}</span>
               </a>
-
-              <button
-                onClick={() => setShowLeadManager(true)}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl font-semibold text-xs bg-stone-100 hover:bg-stone-200 text-slate-700 cursor-pointer"
-              >
-                Xem dữ liệu ({savedLeads.length})
-              </button>
 
               <button
                 onClick={onClose}
