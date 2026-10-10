@@ -32,6 +32,8 @@ export default function App() {
     notes?: string;
   } | undefined>(undefined);
 
+  const [appliedSetMenu, setAppliedSetMenu] = useState<SetMenu | null>(null);
+
   const handleOpenBooking = () => {
     setIsBookingOpen(true);
   };
@@ -67,6 +69,7 @@ export default function App() {
   };
 
   const handleApplySetMenuToCalculator = (setMenu: SetMenu) => {
+    setAppliedSetMenu(setMenu);
     // Scroll smoothly to calculator
     const el = document.getElementById('du-toan');
     if (el) {
@@ -117,6 +120,7 @@ export default function App() {
           onOpenBookingWithData={handleOpenBookingWithData}
           customSelectedDishes={customSelectedDishes}
           onRemoveCustomDish={handleRemoveCustomDish}
+          appliedSetMenu={appliedSetMenu}
         />
 
         {/* Wedding Services & Royal Velvet Tents */}

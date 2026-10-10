@@ -11,13 +11,26 @@ export interface DishItem {
 
 export interface SetMenu {
   id: string;
+  code: string;
   name: string;
   tagline: string;
-  badge?: string;
+  badge: string;
+  isRecommended?: boolean;
   pricePerTable: string;
   pricePerTableNumber: number;
   highlight: string;
   dishes: string[];
+  gift: {
+    title: string;
+    description: string;
+  };
+  voucher: {
+    discountAmount: number;
+    discountFormatted: string;
+    minTables: number;
+    description: string;
+  };
+  conditionShort: string;
 }
 
 export interface WeddingService {
@@ -233,72 +246,121 @@ export const POSTER_FEATURED_DISHES: DishItem[] = [
 // Các bộ thực đơn trọn gói định sẵn
 export const SAMPLE_SET_MENUS: SetMenu[] = [
   {
-    id: 'menu-1',
-    name: 'Thực Đơn TUYẾN LY - TRỌN VẸN NGÀY VUI',
-    tagline: 'Bộ thực đơn bán chạy số 1 theo Poster chuẩn',
-    badge: 'Được Đặt Nhiều Nhất',
-    pricePerTable: '1.950.000đ / bàn 10 khách',
-    pricePerTableNumber: 1950000,
-    highlight: 'Hội tụ đầy đủ các món đặc sản trứ danh Chị Ly: Gà bó xôi hoàng kim, Bò nhúng dấm và Lẩu cá bớp',
-    dishes: [
-      '1. Khai vị ngũ sắc / Tứ quý (Chả ram giòn, nem nướng lụi, gỏi chua cay)',
-      '2. Gà bó xôi hoàng kim (Gà ta ngọt thịt, xôi giòn phồng thơm lừng)',
-      '3. Bò nhúng dấm cuốn bánh tráng rau non & mắm nêm xứ Quảng',
-      '4. Lagu bò bắp hoa hầm mềm + Bánh mì nóng giòn',
-      '5. Lẩu cá bớp măng chua Quảng Ngãi + Bún tươi',
-      '6. Tráng miệng trái cây 4 mùa ngũ sắc tỉa hoa'
-    ]
-  },
-  {
-    id: 'menu-2',
-    name: 'Thực Đơn ĐẠI HỶ HOÀNG GIA',
-    tagline: 'Sang trọng - Đẳng cấp cho ngày cưới hỏi trọng đại',
-    badge: 'Tiệc Cưới VIP',
-    pricePerTable: '2.350.000đ / bàn 10 khách',
-    pricePerTableNumber: 2350000,
-    highlight: 'Đậm vị hải sản thượng hạng và bò tơ hảo hạng, bài trí mâm cỗ lộng lẫy chuẩn phong cách tiệc lớn',
-    dishes: [
-      '1. Khai vị Gỏi sứa đặc biệt + Gỏi ngó sen tôm Tuyến Ly',
-      '2. Tôm sú hấp trái dừa xiêm ngọt lịm chấm muối ớt xanh',
-      '3. Gà lên mâm ngũ vị truyền thống (Gà lá é, xôi gấc song hỷ)',
-      '4. Bò tái chanh cuốn cải mầm chấm mù tạt cay nồng',
-      '5. Lẩu hải sản chua cay thập cẩm (Tôm sú, mực tươi, nghêu ngọt) + Bún',
-      '6. Chè hạt sen long nhãn đường phèn & Trái cây nhập khẩu'
-    ]
-  },
-  {
-    id: 'menu-3',
-    name: 'Thực Đơn ĐẬM ĐỘC BẢN SẮC',
-    tagline: 'Hương vị thân thuộc, mộc mạc mà đầm ấm nghĩa tình',
-    badge: 'Tiệc Tân Gia & Đám Hỏi',
+    id: 'combo-01',
+    code: 'COMBO 01',
+    name: 'ĐẦM ẤM SUM VẦY',
+    tagline: 'Tiệc cưới đầm ấm – Ngân sách tối ưu',
+    badge: 'TIẾT KIỆM',
     pricePerTable: '1.750.000đ / bàn 10 khách',
     pricePerTableNumber: 1750000,
-    highlight: 'Nguyên liệu sạch tại địa phương Nghĩa Hành, gia vị đậm đà vừa miệng, khẩu phần đầy đặn',
+    highlight: 'Hương vị đậm đà miền Trung, món ăn chỉn chu, mộc mạc mà đầm ấm nghĩa tình',
     dishes: [
-      '1. Gỏi hoa chuối bóp thịt gà ta giòn cay thơm nồng',
-      '2. Chả giò phượng hoàng chiên giòn hoàng kim',
-      '3. Heo quay da giòn bánh hỏi lá hẹ nước mắm tỏi ớt',
-      '4. Lagu bò hầm khoai tây + Bánh mì đặc ruột',
-      '5. Lẩu thái hải sản tôm mực bắp non + Bún tươi',
-      '6. Rau câu tam sắc thanh mát giải nhiệt'
-    ]
+      'Gỏi hoa chuối bóp thịt gà ta giòn cay thơm nồng.',
+      'Chả giò phượng hoàng chiên giòn.',
+      'Heo quay da giòn ăn kèm bánh hỏi.',
+      'Lagu bò hầm khoai tây + bánh mì đặc ruột.',
+      'Lẩu hải sản tôm mực bắp non + bún tươi.',
+      'Rau câu tam sắc thanh mát.'
+    ],
+    gift: {
+      title: 'Thiệp cảm ơn điện tử cá nhân hóa',
+      description: 'Thiết kế riêng cho đôi uyên ương gửi lời tri ân ngọt ngào đến quan khách'
+    },
+    voucher: {
+      discountAmount: 200000,
+      discountFormatted: 'Giảm 200.000đ',
+      minTables: 20,
+      description: 'Giảm 200.000đ khi đặt từ 20 bàn'
+    },
+    conditionShort: 'Áp dụng khi đặt từ 20 bàn trở lên'
   },
   {
-    id: 'menu-4',
-    name: 'Thực Đơn HẠNH PHÚC VIÊN MÃN',
-    tagline: 'Giao thoa tinh tế giữa vị biển và vị núi rừng Quảng Ngãi',
-    badge: 'Tiệc Cưới Cao Cấp',
+    id: 'combo-02',
+    code: 'COMBO 02',
+    name: 'TRỌN VẸN NGÀY VUI',
+    tagline: 'Hội tụ tinh hoa món ngon Chị Ly tuyển chọn',
+    badge: 'COMBO ĐỀ XUẤT',
+    isRecommended: true,
+    pricePerTable: '1.950.000đ / bàn 10 khách',
+    pricePerTableNumber: 1950000,
+    highlight: 'Bộ thực đơn đặc sắc từ Tuyến Ly, chuẩn vị quê hương Nghĩa Hành, Quảng Ngãi',
+    dishes: [
+      'Khai vị ngũ sắc / Tứ quý.',
+      'Gà bó xôi hoàng kim.',
+      'Bò nhúng dấm cuốn bánh tráng rau non.',
+      'Lagu bò bắp hoa hầm mềm + bánh mì.',
+      'Lẩu cá bớp măng chua Quảng Ngãi + bún tươi.',
+      'Trái cây bốn mùa trang trí đẹp mắt.'
+    ],
+    gift: {
+      title: 'Bảng welcome cưới cá nhân hóa',
+      description: 'Bảng đón khách trang trọng đặt tại tiền sảnh tiệc cưới'
+    },
+    voucher: {
+      discountAmount: 300000,
+      discountFormatted: 'Giảm 300.000đ',
+      minTables: 20,
+      description: 'Giảm 300.000đ khi đặt từ 20 bàn'
+    },
+    conditionShort: 'Áp dụng khi đặt từ 20 bàn trở lên'
+  },
+  {
+    id: 'combo-03',
+    code: 'COMBO 03',
+    name: 'HẠNH PHÚC VIÊN MÃN',
+    tagline: 'Hài hòa vị biển và đặc sản bò tơ non mềm',
+    badge: 'CAO CẤP',
     pricePerTable: '2.150.000đ / bàn 10 khách',
     pricePerTableNumber: 2150000,
-    highlight: 'Sự kết hợp hoàn hảo giữa gỏi ngó sen tôm thịt tươi mát, bò nhúng dấm và lẩu cá bớp',
+    highlight: 'Sự giao thoa giữa tôm sú thơm ngon, bắp bò tơ hảo hạng và lẩu cá bớp đậm đà',
     dishes: [
-      '1. Gỏi ngó sen tôm thịt giòn ngọt thanh tao',
-      '2. Gà bó xôi chiên giòn hạt điều bùi béo',
-      '3. Bò nhúng dấm bắp bò tơ non mềm mọng nước',
-      '4. Tôm sú xông hơi bia sả ớt cay thơm',
-      '5. Lẩu cá bớp măng giòn dầm ớt hiểm + Bún sợi nhỏ',
-      '6. Tráng miệng trái cây bưởi da xanh & dưa hấu ngọt lịm'
-    ]
+      'Gỏi ngó sen tôm thịt giòn ngọt.',
+      'Gà bó xôi chiên giòn hạt điều bùi béo.',
+      'Bò nhúng dấm bắp bò tơ non mềm.',
+      'Tôm sú xông hơi bia sả thơm ngon.',
+      'Lẩu cá bớp măng chua + bún.',
+      'Trái cây bưởi da xanh và dưa hấu.'
+    ],
+    gift: {
+      title: 'Bảng welcome cưới + trang trí bàn đón khách cơ bản',
+      description: 'Combo đón khách tinh tế với hoa lụa và phụ kiện trang trí cổng cưới'
+    },
+    voucher: {
+      discountAmount: 500000,
+      discountFormatted: 'Giảm 500.000đ',
+      minTables: 25,
+      description: 'Giảm 500.000đ khi đặt từ 25 bàn'
+    },
+    conditionShort: 'Áp dụng khi đặt từ 25 bàn trở lên'
+  },
+  {
+    id: 'combo-04',
+    code: 'COMBO 04',
+    name: 'ĐẠI HỶ HOÀNG GIA',
+    tagline: 'Đẳng cấp hoàng gia – Trọng thể ngày vui lớn',
+    badge: 'TIỆC CƯỚI VIP',
+    pricePerTable: '2.350.000đ / bàn 10 khách',
+    pricePerTableNumber: 2350000,
+    highlight: 'Mâm cỗ đại hỷ sang trọng với hải sản tươi sống cao cấp và bài trí bề thế',
+    dishes: [
+      'Khai vị gỏi sứa đặc biệt + gỏi ngó sen tôm Tuyến Ly.',
+      'Tôm sú hấp trái dừa xiêm ngọt lịm.',
+      'Gà lên mâm ngũ vị truyền thống.',
+      'Bò tái chanh cuốn cải mầm.',
+      'Lẩu hải sản chua cay thập cẩm + bún.',
+      'Chè hạt sen long nhãn đường phèn.'
+    ],
+    gift: {
+      title: 'Bảng welcome VIP và trang trí bàn đón khách nâng cấp',
+      description: 'Khu vực check-in & đón khách phong cách VIP lộng lẫy và nổi bật'
+    },
+    voucher: {
+      discountAmount: 800000,
+      discountFormatted: 'Giảm 800.000đ',
+      minTables: 30,
+      description: 'Giảm 800.000đ khi đặt từ 30 bàn'
+    },
+    conditionShort: 'Áp dụng khi đặt từ 30 bàn trở lên'
   }
 ];
 

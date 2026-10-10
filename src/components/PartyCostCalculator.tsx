@@ -1,6 +1,23 @@
-import React, { useState, useMemo } from 'react';
-import { Calculator, Copy, Check, Phone, Sparkles, Plus, Trash2, ArrowRight, ShieldCheck, Gift } from 'lucide-react';
-import { POSTER_FEATURED_DISHES, SAMPLE_SET_MENUS, BRAND_INFO, SetMenu, DishItem } from '../data/cateringData';
+import React, { useState, useMemo, useEffect } from 'react';
+import {
+  Calculator,
+  Copy,
+  Check,
+  Phone,
+  Sparkles,
+  Trash2,
+  ArrowRight,
+  ShieldCheck,
+  Gift,
+  Ticket,
+  Info
+} from 'lucide-react';
+import {
+  SAMPLE_SET_MENUS,
+  BRAND_INFO,
+  SetMenu,
+  DishItem
+} from '../data/cateringData';
 
 interface PartyCostCalculatorProps {
   onOpenBookingWithData: (data: {
@@ -12,16 +29,25 @@ interface PartyCostCalculatorProps {
   }) => void;
   customSelectedDishes: DishItem[];
   onRemoveCustomDish: (dishId: string) => void;
+  appliedSetMenu?: SetMenu | null;
 }
 
 export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
   onOpenBookingWithData,
   customSelectedDishes,
   onRemoveCustomDish,
+  appliedSetMenu,
 }) => {
   const [tableCount, setTableCount] = useState<number>(10);
-  const [selectedPresetId, setSelectedPresetId] = useState<string>('preset-custom');
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('combo-02');
   const [copiedSuccess, setCopiedSuccess] = useState<boolean>(false);
+
+  // Sync when user clicks "NHẬN DỰ TOÁN & QUÀ TẶNG" on any combo card
+  useEffect(() => {
+    if (appliedSetMenu) {
+      setSelectedPresetId(appliedSetMenu.id);
+    }
+  }, [appliedSetMenu]);
 
   // Add-on options
   const [addOnRapCuoi, setAddOnRapCuoi] = useState<boolean>(true);
@@ -41,6 +67,11 @@ export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
     amThanh: 2500000,
   };
 
+  // Find currently selected set menu combo if applicable
+  const selectedCombo = useMemo(() => {
+    return SAMPLE_SET_MENUS.find((s) => s.id === selectedPresetId);
+  }, [selectedPresetId]);
+
   // Base price per table based on selection
   const pricePerTable = useMemo(() => {
     if (selectedPresetId === 'preset-custom') {
@@ -49,14 +80,13 @@ export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
       }
       return customSelectedDishes.reduce((sum, d) => sum + d.priceEstimate, 0);
     }
-    const foundSet = SAMPLE_SET_MENUS.find((s) => s.id === selectedPresetId);
-    return foundSet ? foundSet.pricePerTableNumber : 1950000;
-  }, [selectedPresetId, customSelectedDishes]);
+    return selectedCombo ? selectedCombo.pricePerTableNumber : 1950000;
+  }, [selectedPresetId, selectedCombo, customSelectedDishes]);
 
-  // Food total
+  // Food total: Tổng thực đơn = Giá combo mỗi bàn × Số bàn
   const foodTotal = tableCount * pricePerTable;
 
-  // Addons total
+  // Addons total: Chi phí dịch vụ phát sinh tính riêng
   const addOnsTotal = useMemo(() => {
     let sum = 0;
     if (addOnRapCuoi) sum += addOnPrices.rapCuoi;
@@ -68,14 +98,26 @@ export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
     return sum;
   }, [addOnRapCuoi, addOnXeHoa, addOnXe16Cho, addOnTiffany, addOnNuocNgot, addOnAmThanh, tableCount]);
 
-  // Combo Discount
-  const discountAmount = useMemo(() => {
-    let discount = 0;
-    if (tableCount >= 15 && addOnRapCuoi) discount += 500000;
-    if (addOnRapCuoi && (addOnXeHoa || addOnXe16Cho)) discount += 300000;
-    return discount;
-  }, [tableCount, addOnRapCuoi, addOnXeHoa, addOnXe16Cho]);
+  // Voucher logic:
+  // - Áp dụng tối đa 1 voucher giảm tiền
+  // - Chỉ áp dụng khi đủ số bàn tối thiểu (tableCount >= minTables)
+  // - Nếu khách giảm số bàn dưới ngưỡng, tự động tính lại (không áp dụng)
+  const voucherInfo = useMemo(() => {
+    if (!selectedCombo) return null;
+    const isEligible = tableCount >= selectedCombo.voucher.minTables;
+    return {
+      isEligible,
+      minTables: selectedCombo.voucher.minTables,
+      discountAmount: isEligible ? selectedCombo.voucher.discountAmount : 0,
+      discountFormatted: selectedCombo.voucher.discountFormatted,
+      description: selectedCombo.voucher.description,
+      tablesNeeded: Math.max(0, selectedCombo.voucher.minTables - tableCount),
+    };
+  }, [selectedCombo, tableCount]);
 
+  const discountAmount = voucherInfo?.isEligible ? voucherInfo.discountAmount : 0;
+
+  // Tiền dự kiến sau voucher = Tổng thực đơn − Voucher hợp lệ + Chi phí dịch vụ phát sinh
   const grandTotal = Math.max(0, foodTotal + addOnsTotal - discountAmount);
 
   // Selected menu title
@@ -84,11 +126,10 @@ export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
       if (customSelectedDishes.length > 0) {
         return `Thực đơn Tự chọn (${customSelectedDishes.length} món)`;
       }
-      return 'Thực đơn Tiêu biểu Tuyến Ly (Chuẩn Poster)';
+      return 'Thực đơn Tự chọn Tuyến Ly';
     }
-    const found = SAMPLE_SET_MENUS.find((s) => s.id === selectedPresetId);
-    return found ? found.name : 'Thực đơn Tuyến Ly';
-  }, [selectedPresetId, customSelectedDishes]);
+    return selectedCombo ? `${selectedCombo.code} – ${selectedCombo.name}` : 'Thực đơn Tuyến Ly';
+  }, [selectedPresetId, selectedCombo, customSelectedDishes]);
 
   // Format currency
   const formatVND = (amount: number) => {
@@ -110,13 +151,15 @@ export const PartyCostCalculator: React.FC<PartyCostCalculatorProps> = ({
   const handleCopyQuoteForZalo = () => {
     const message = `KÍNH GỬI CHỊ LY (CƠ SỞ TUYẾN LY - NGHĨA HÀNH):
 Tôi muốn đặt tiệc & xin báo giá chi tiết:
-- Số lượng bàn: ${tableCount} bàn
+- Quy mô tiệc: ${tableCount} bàn (~${tableCount * 10} khách)
 - Gói thực đơn: ${currentMenuTitle}
-- Chi phí cỗ ước tính: ${formatVND(foodTotal)} (~${formatVND(pricePerTable)}/bàn)
-${selectedAddOnNames.length > 0 ? `- Dịch vụ kèm theo:\n  + ${selectedAddOnNames.join('\n  + ')}` : ''}
-${discountAmount > 0 ? `- Ưu đãi combo được áp dụng: -${formatVND(discountAmount)}` : ''}
-- TỔNG CHI PHÍ DỰ KIẾN: ${formatVND(grandTotal)}
-Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
+- Tiền thực đơn tạm tính: ${formatVND(foodTotal)} (${formatVND(pricePerTable)}/bàn)
+${selectedCombo ? `- Quà tặng kèm theo: ${selectedCombo.gift.title}` : ''}
+${discountAmount > 0 ? `- Voucher ưu đãi áp dụng: -${formatVND(discountAmount)} (${selectedCombo?.voucher.description})` : ''}
+${selectedAddOnNames.length > 0 ? `- Dịch vụ kèm theo:\n  + ${selectedAddOnNames.join('\n  + ')}\n  => Chi phí dịch vụ: ${formatVND(addOnsTotal)}` : ''}
+- TỔNG DỰ KIẾN SAU VOUCHER: ${formatVND(grandTotal)}
+(Giá tham khảo cho bàn 10 khách. Dịch vụ đi kèm và giá cuối cùng được xác nhận theo từng hợp đồng từ Tuyến Ly).
+Nhờ Chị Ly (${BRAND_INFO.hotline1}) tư vấn chi tiết và giữ ngày giúp tôi!`;
 
     navigator.clipboard.writeText(message);
     setCopiedSuccess(true);
@@ -129,7 +172,7 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
       menuName: currentMenuTitle,
       totalCost: grandTotal,
       addOns: selectedAddOnNames,
-      notes: `Dự toán ước tính: ${formatVND(grandTotal)} cho ${tableCount} bàn (${currentMenuTitle})`,
+      notes: `Dự toán ước tính: ${formatVND(grandTotal)} cho ${tableCount} bàn (${currentMenuTitle})${selectedCombo ? ` | Quà tặng: ${selectedCombo.gift.title}` : ''}${discountAmount > 0 ? ` | Voucher: -${formatVND(discountAmount)}` : ''}`,
     });
   };
 
@@ -149,7 +192,7 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Công cụ trực quan giúp quý khách dễ dàng tính toán ngân sách tiệc cưới, tân gia, sinh nhật theo đúng số lượng bàn và các món ăn yêu thích tại Nghĩa Hành, Quảng Ngãi.
+            Công cụ trực quan giúp quý khách dễ dàng tính toán ngân sách tiệc cưới theo đúng số lượng bàn, combo thực đơn và ưu đãi quà tặng – voucher từ Tuyến Ly.
           </p>
         </div>
 
@@ -185,7 +228,7 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
 
                 {/* Quick table presets */}
                 <div className="flex flex-wrap gap-2 mt-3 pt-2.5 border-t border-stone-200">
-                  {[5, 10, 15, 20, 30, 50].map((count) => (
+                  {[5, 10, 15, 20, 25, 30, 50].map((count) => (
                     <button
                       key={count}
                       onClick={() => setTableCount(count)}
@@ -203,74 +246,191 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
 
               {/* Step 2: Chọn Thực Đơn Tiệc */}
               <div className="p-5 rounded-2xl bg-stone-50/80 border border-stone-200">
-                <label className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2 mb-3">
-                  <span className="w-6 h-6 rounded-full bg-red-700 text-white text-xs font-black flex items-center justify-center">2</span>
-                  <span>Gói Thực Đơn Áp Dụng:</span>
-                </label>
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-red-700 text-white text-xs font-black flex items-center justify-center">2</span>
+                    <span>Gói Thực Đơn Áp Dụng:</span>
+                  </label>
+                  <span className="text-xs text-slate-500 hidden sm:inline">
+                    Chọn combo hoặc tự phối món
+                  </span>
+                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                {/* Combos Selection Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                  {SAMPLE_SET_MENUS.map((menu) => {
+                    const isSelected = selectedPresetId === menu.id;
+                    const isRecommended = Boolean(menu.isRecommended);
+
+                    return (
+                      <button
+                        key={menu.id}
+                        type="button"
+                        onClick={() => setSelectedPresetId(menu.id)}
+                        className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative ${
+                          isSelected
+                            ? 'border-red-600 bg-red-50/80 text-slate-900 shadow-md ring-2 ring-red-200'
+                            : isRecommended
+                            ? 'border-red-300 bg-white hover:border-red-400'
+                            : 'border-stone-200 bg-white text-slate-700 hover:border-stone-300'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-1 mb-1.5">
+                          <span
+                            className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              isRecommended
+                                ? 'bg-red-700 text-white'
+                                : menu.badge === 'TIẾT KIỆM'
+                                ? 'bg-emerald-700 text-white'
+                                : menu.badge === 'TIỆC CƯỚI VIP'
+                                ? 'bg-purple-900 text-amber-200'
+                                : 'bg-amber-600 text-white'
+                            }`}
+                          >
+                            {menu.badge}
+                          </span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase">
+                            {menu.code}
+                          </span>
+                        </div>
+                        <div className="font-bold text-xs sm:text-sm text-slate-900 line-clamp-1">
+                          {menu.name}
+                        </div>
+                        <div className="text-xs text-red-700 mt-1 font-black">
+                          {menu.pricePerTableNumber.toLocaleString('vi-VN')}đ <span className="text-[10px] text-slate-500 font-normal">/ bàn</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  {/* Preset: Tự phối món theo poster */}
                   <button
+                    type="button"
                     onClick={() => setSelectedPresetId('preset-custom')}
-                    className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                       selectedPresetId === 'preset-custom'
-                        ? 'border-red-600 bg-red-50/60 text-slate-900 shadow-sm'
+                        ? 'border-red-600 bg-red-50/80 text-slate-900 shadow-md ring-2 ring-red-200'
                         : 'border-stone-200 bg-white text-slate-700 hover:border-stone-300'
                     }`}
                   >
-                    <div className="text-xs font-bold text-red-700">TỰ PHỐI MÓN THEO POSTER</div>
-                    <div className="font-semibold text-sm mt-0.5">
-                      {customSelectedDishes.length > 0
-                        ? `Đã chọn ${customSelectedDishes.length} món`
-                        : 'Món Tiêu Biểu Tuyến Ly'}
+                    <div className="flex items-center justify-between gap-1 mb-1.5">
+                      <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-white">
+                        TỰ PHỐI MÓN
+                      </span>
+                      <span className="text-[10px] font-bold text-slate-400">
+                        {customSelectedDishes.length} món
+                      </span>
                     </div>
-                    <div className="text-xs text-red-600 mt-1 font-bold">
-                      {formatVND(pricePerTable)} / bàn
+                    <div className="font-bold text-xs sm:text-sm text-slate-900 line-clamp-1">
+                      Thực đơn tự chọn riêng
+                    </div>
+                    <div className="text-xs text-red-700 mt-1 font-black">
+                      {formatVND(pricePerTable)} <span className="text-[10px] text-slate-500 font-normal">/ bàn</span>
                     </div>
                   </button>
-
-                  {SAMPLE_SET_MENUS.slice(0, 3).map((menu) => (
-                    <button
-                      key={menu.id}
-                      onClick={() => setSelectedPresetId(menu.id)}
-                      className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        selectedPresetId === menu.id
-                          ? 'border-red-600 bg-red-50/60 text-slate-900 shadow-sm'
-                        : 'border-stone-200 bg-white text-slate-700 hover:border-stone-300'
-                      }`}
-                    >
-                      <div className="text-xs font-bold text-amber-700">{menu.badge || 'SET MENU'}</div>
-                      <div className="font-semibold text-xs sm:text-sm mt-0.5 truncate">{menu.name}</div>
-                      <div className="text-xs text-red-700 mt-1 font-bold">{menu.pricePerTable}</div>
-                    </button>
-                  ))}
                 </div>
 
+                {/* Details of Selected Combo: Quà tặng, Voucher, 6 món */}
+                {selectedCombo && (
+                  <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100">
+                      <div>
+                        <div className="text-xs font-bold text-red-700 uppercase tracking-wide">
+                          Chi tiết {selectedCombo.code} – {selectedCombo.name}
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          {selectedCombo.tagline}
+                        </div>
+                      </div>
+                      <span className="text-xs font-black text-slate-800 bg-stone-100 px-2.5 py-1 rounded-lg shrink-0">
+                        Giá: {selectedCombo.pricePerTable}
+                      </span>
+                    </div>
+
+                    {/* Gifts & Voucher status banner */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                      {/* Quà tặng */}
+                      <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-200 flex items-start gap-2.5">
+                        <Gift className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-extrabold text-amber-900 block text-[11px] uppercase">Quà tặng dành riêng:</span>
+                          <span className="font-bold text-slate-900 text-xs">{selectedCombo.gift.title}</span>
+                        </div>
+                      </div>
+
+                      {/* Voucher status */}
+                      <div className={`p-2.5 rounded-xl border flex items-start gap-2.5 ${
+                        voucherInfo?.isEligible
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                          : 'bg-rose-50 border-rose-200 text-rose-900'
+                      }`}>
+                        <Ticket className={`w-4 h-4 shrink-0 mt-0.5 ${voucherInfo?.isEligible ? 'text-emerald-700' : 'text-rose-600'}`} />
+                        <div>
+                          <span className="font-extrabold block text-[11px] uppercase">
+                            {voucherInfo?.isEligible ? 'Voucher Đã Kích Hoạt:' : 'Voucher Ưu Đãi:'}
+                          </span>
+                          {voucherInfo?.isEligible ? (
+                            <span className="font-bold text-emerald-800 text-xs">
+                              Đã áp dụng giảm {voucherInfo.discountFormatted} cho tiệc {tableCount} bàn!
+                            </span>
+                          ) : (
+                            <span className="font-medium text-rose-700 text-xs">
+                              Cần từ {selectedCombo.voucher.minTables} bàn để giảm {selectedCombo.voucher.discountFormatted} (chỉ cần thêm {voucherInfo?.tablesNeeded} bàn nữa).
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 6 dishes in combo */}
+                    <div className="pt-1">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        6 món ăn trong bàn tiệc:
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-slate-700">
+                        {selectedCombo.dishes.map((d, i) => (
+                          <div key={i} className="flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span className="truncate">{d}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Show Selected Dishes list if custom */}
-                {selectedPresetId === 'preset-custom' && customSelectedDishes.length > 0 && (
+                {selectedPresetId === 'preset-custom' && (
                   <div className="p-3.5 rounded-xl bg-white border border-stone-200 shadow-xs">
                     <div className="text-xs font-semibold text-slate-700 mb-2 flex items-center justify-between">
                       <span>Các món bạn đã chọn ({customSelectedDishes.length} món):</span>
                       <a href="#thuc-don" className="text-red-700 font-bold underline hover:text-red-800 text-[11px]">
-                        + Chọn thêm món
+                        + Chọn thêm món từ thực đơn
                       </a>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {customSelectedDishes.map((dish) => (
-                        <span
-                          key={dish.id}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-100 text-xs text-slate-800 border border-stone-200 font-medium"
-                        >
-                          <span>{dish.name}</span>
-                          <button
-                            onClick={() => onRemoveCustomDish(dish.id)}
-                            className="text-stone-400 hover:text-red-600 cursor-pointer"
-                            title="Xóa món"
+                    {customSelectedDishes.length === 0 ? (
+                      <p className="text-xs text-slate-500 italic">
+                        Chưa chọn món nào. Vui lòng bấm vào phần Thực đơn phía trên để chọn món cho bàn tiệc của bạn.
+                      </p>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {customSelectedDishes.map((dish) => (
+                          <span
+                            key={dish.id}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-100 text-xs text-slate-800 border border-stone-200 font-medium"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </span>
-                      ))}
-                    </div>
+                            <span>{dish.name}</span>
+                            <button
+                              onClick={() => onRemoveCustomDish(dish.id)}
+                              className="text-stone-400 hover:text-red-600 cursor-pointer"
+                              title="Xóa món"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -279,7 +439,7 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
               <div className="p-5 rounded-2xl bg-stone-50/80 border border-stone-200">
                 <label className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2 mb-3">
                   <span className="w-6 h-6 rounded-full bg-red-700 text-white text-xs font-black flex items-center justify-center">3</span>
-                  <span>Dịch Vụ Kèm Theo (Tùy chọn combo tiết kiệm):</span>
+                  <span>Dịch Vụ Kèm Theo (Tùy chọn):</span>
                 </label>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
@@ -389,20 +549,42 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
                     <span className="font-bold text-white">{formatVND(foodTotal)}</span>
                   </div>
 
+                  {/* Quà tặng kèm theo */}
+                  {selectedCombo && (
+                    <div className="flex items-start justify-between text-amber-200 gap-2">
+                      <span className="flex items-center gap-1 font-medium shrink-0">
+                        <Gift className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Quà tặng kèm theo:</span>
+                      </span>
+                      <span className="font-bold text-right text-xs">
+                        {selectedCombo.gift.title} (Miễn phí)
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Voucher giảm giá */}
+                  {selectedCombo && (
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-1 text-rose-100">
+                        <Ticket className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Voucher ưu đãi:</span>
+                      </span>
+                      {discountAmount > 0 ? (
+                        <span className="font-black text-amber-300">
+                          -{formatVND(discountAmount)}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-rose-200 italic">
+                          Chưa áp dụng (cần từ {selectedCombo.voucher.minTables} bàn)
+                        </span>
+                      )}
+                    </div>
+                  )}
+
                   {addOnsTotal > 0 && (
                     <div className="flex items-center justify-between">
                       <span className="text-rose-100">Dịch vụ rạp, xe & tiện ích kèm:</span>
                       <span className="font-bold text-white">{formatVND(addOnsTotal)}</span>
-                    </div>
-                  )}
-
-                  {discountAmount > 0 && (
-                    <div className="flex items-center justify-between text-amber-300">
-                      <span className="flex items-center gap-1 font-semibold">
-                        <Gift className="w-4 h-4" />
-                        <span>Ưu đãi combo Tuyến Ly:</span>
-                      </span>
-                      <span className="font-black">-{formatVND(discountAmount)}</span>
                     </div>
                   )}
                 </div>
@@ -410,7 +592,7 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
                 {/* Grand Total Highlight */}
                 <div className="p-4 rounded-xl bg-black/35 border border-amber-300/40 my-3 text-center backdrop-blur-sm">
                   <div className="text-xs text-amber-200 font-bold uppercase tracking-wider mb-1">
-                    TỔNG CHI PHÍ DỰ KIẾN
+                    TỔNG CHI PHÍ DỰ KIẾN SAU VOUCHER
                   </div>
                   <div className="text-2xl sm:text-3xl font-black text-amber-300">
                     {formatVND(grandTotal)}
@@ -420,15 +602,15 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
                   </div>
                 </div>
 
-                {/* Gifts & Guarantees */}
-                <div className="space-y-1.5 p-3 rounded-lg bg-black/25 border border-white/15 text-[11px] text-rose-100">
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                    <span>Miễn phí vận chuyển chén đĩa tại TT. Chợ Chùa & lân cận</span>
+                {/* Disclaimer & Notice */}
+                <div className="space-y-2 p-3 rounded-lg bg-black/25 border border-white/15 text-[11px] text-rose-100">
+                  <div className="flex items-start gap-1.5 leading-relaxed">
+                    <Info className="w-3.5 h-3.5 text-amber-300 shrink-0 mt-0.5" />
+                    <span>Giá tham khảo cho bàn 10 khách. Dịch vụ đi kèm và giá cuối cùng được xác nhận theo từng hợp đồng từ Tuyến Ly.</span>
                   </div>
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                    <span>Tặng kèm pháo kim tuyến & tháp ly champagne cho tiệc cưới từ 15 bàn</span>
+                  <div className="flex items-center gap-1.5 font-medium text-amber-200 pt-0.5 border-t border-white/10">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                    <span>Miễn phí vận chuyển chén đĩa & bàn ghế tại TT. Chợ Chùa & lân cận</span>
                   </div>
                 </div>
               </div>
@@ -476,3 +658,4 @@ Nhờ Chị Ly (0935 777 205) tư vấn chi tiết và giữ ngày giúp tôi!`;
     </section>
   );
 };
+

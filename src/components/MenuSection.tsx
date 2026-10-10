@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
-import { Utensils, Star, Plus, Check, Eye, Sparkles, BookOpen, ChevronRight, Phone } from 'lucide-react';
+import {
+  Utensils,
+  Plus,
+  Check,
+  Eye,
+  Sparkles,
+  BookOpen,
+  ChevronRight,
+  Phone,
+  Gift,
+  Ticket,
+  Info,
+  X,
+  ShieldCheck
+} from 'lucide-react';
 import { POSTER_FEATURED_DISHES, SAMPLE_SET_MENUS, DishItem, SetMenu, BRAND_INFO } from '../data/cateringData';
 
 interface MenuSectionProps {
@@ -17,6 +31,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'poster_dishes' | 'set_menus'>('poster_dishes');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [showTermsModal, setShowTermsModal] = useState<boolean>(false);
 
   const categories = [
     { id: 'all', label: 'Tất Cả Món' },
@@ -194,68 +209,181 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 
         {/* TAB 2: 4 CURATED SET MENUS */}
         {activeTab === 'set_menus' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {SAMPLE_SET_MENUS.map((setMenu) => (
-              <div
-                key={setMenu.id}
-                className="rounded-2xl p-6 sm:p-7 bg-stone-50/70 border-2 border-stone-200 hover:border-red-300 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between"
-              >
-                {/* Badge if any */}
-                {setMenu.badge && (
-                  <div className="absolute -top-3.5 right-6">
-                    <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-red-700 text-white shadow-sm uppercase tracking-wider">
-                      {setMenu.badge}
-                    </span>
-                  </div>
-                )}
-
-                <div>
-                  <div className="mb-4">
-                    <span className="text-xs uppercase text-amber-700 font-bold tracking-widest block mb-1">
-                      {setMenu.tagline}
-                    </span>
-                    <h3 className="font-bold text-xl sm:text-2xl text-slate-900">
-                      {setMenu.name}
-                    </h3>
-                    <div className="text-2xl sm:text-3xl font-black text-red-700 mt-2">
-                      {setMenu.pricePerTable}
-                    </div>
-                    <p className="text-xs text-slate-500 mt-1 italic">
-                      {setMenu.highlight}
-                    </p>
-                  </div>
-
-                  {/* Dishes list */}
-                  <div className="space-y-2.5 my-5 p-4 rounded-xl bg-white border border-stone-200 text-slate-700 text-sm shadow-xs">
-                    {setMenu.dishes.map((dishName, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5">
-                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span className="font-medium text-slate-800">{dishName}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom Actions */}
-                <div className="pt-4 border-t border-stone-200 flex flex-col sm:flex-row items-center gap-3">
-                  <button
-                    onClick={() => onApplySetMenuToCalculator(setMenu)}
-                    className="w-full sm:flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-red-600 to-rose-600 text-white hover:from-red-700 hover:to-rose-700 transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
-                  >
-                    <span>Dự toán & Đặt thực đơn này</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-
-                  <a
-                    href={`tel:${BRAND_INFO.hotline1Raw}`}
-                    className="w-full sm:w-auto py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-stone-300 hover:bg-stone-50 transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-red-600" />
-                    <span>Hỏi Chị Ly</span>
-                  </a>
-                </div>
+          <div className="space-y-10">
+            {/* Header specifically for 4 Curated Set Menus */}
+            <div className="text-center max-w-3xl mx-auto">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2">
+                4 BỘ THỰC ĐƠN MẪU TRỌN GÓI
+              </h3>
+              <p className="text-base sm:text-lg font-bold text-red-700 mb-2">
+                Trọn vị ngon – Trọn niềm vui – Trọn hạnh phúc
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                Khám phá 4 bộ thực đơn tiệc cưới đặc sắc từ Tuyến Ly. Hương vị đậm đà miền Trung, món ăn chỉn chu, thực đơn linh hoạt theo nhu cầu và ngân sách của từng gia đình.
+              </p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-stone-100 text-slate-700 text-xs sm:text-sm font-medium border border-stone-200/90 shadow-2xs">
+                <Info className="w-4 h-4 text-red-600 shrink-0" />
+                <span>Giá tham khảo cho bàn 10 khách. Dịch vụ đi kèm và giá cuối cùng được xác nhận theo từng hợp đồng.</span>
               </div>
-            ))}
+            </div>
+
+            {/* 4 Cards Grid - 2 columns on desktop */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {SAMPLE_SET_MENUS.map((setMenu) => {
+                const isRecommended = Boolean(setMenu.isRecommended);
+
+                return (
+                  <div
+                    key={setMenu.id}
+                    className={`rounded-3xl p-6 sm:p-8 transition-all relative flex flex-col justify-between ${
+                      isRecommended
+                        ? 'bg-gradient-to-b from-red-50/60 via-white to-white border-2 border-red-600 ring-4 ring-red-100/80 shadow-xl'
+                        : 'bg-stone-50/70 border-2 border-stone-200 hover:border-red-300 shadow-sm hover:shadow-md'
+                    }`}
+                  >
+                    <div>
+                      {/* 1. Badge phân loại combo */}
+                      <div className="flex items-center justify-between gap-3 mb-3">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-black tracking-wider uppercase shadow-2xs ${
+                            isRecommended
+                              ? 'bg-red-700 text-white'
+                              : setMenu.badge === 'TIẾT KIỆM'
+                              ? 'bg-emerald-700 text-white'
+                              : setMenu.badge === 'TIỆC CƯỚI VIP'
+                              ? 'bg-purple-900 text-amber-200'
+                              : 'bg-amber-600 text-white'
+                          }`}
+                        >
+                          {setMenu.badge}
+                        </span>
+
+                        <span className="text-xs uppercase font-bold text-slate-500 tracking-wider">
+                          {setMenu.code}
+                        </span>
+                      </div>
+
+                      {/* 2. Tên combo */}
+                      <h4 className="font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
+                        {setMenu.code} – {setMenu.name}
+                      </h4>
+
+                      {/* 3. Giá tham khảo nổi bật */}
+                      <div className="mt-2.5 mb-1.5 flex items-baseline gap-2">
+                        <span className="text-3xl sm:text-4xl font-black text-red-700 tracking-tight">
+                          {setMenu.pricePerTableNumber.toLocaleString('vi-VN')}đ
+                        </span>
+                        <span className="text-xs sm:text-sm font-semibold text-slate-500">
+                          / bàn 10 khách
+                        </span>
+                      </div>
+
+                      {/* 4. Mô tả ngắn */}
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 italic">
+                        {setMenu.highlight}
+                      </p>
+
+                      {/* 5. Danh sách 6 món có dấu check */}
+                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-stone-200 text-slate-800 text-sm shadow-xs mb-5">
+                        <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center justify-between">
+                          <span>Danh sách 6 món trong thực đơn:</span>
+                          <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                            Đầy đủ 6 món
+                          </span>
+                        </div>
+                        <div className="space-y-2.5">
+                          {setMenu.dishes.map((dishName, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5">
+                              <span className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
+                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                              </span>
+                              <span className="font-medium text-slate-800 text-xs sm:text-sm leading-snug">
+                                {idx + 1}. {dishName.replace(/^\d+\.\s*/, '')}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* 6. Khu vực "QUÀ TẶNG DÀNH RIÊNG" kèm icon quà */}
+                      <div className="mb-3 p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/90 text-amber-950 flex items-start gap-3 shadow-2xs">
+                        <div className="w-8 h-8 rounded-lg bg-amber-200/80 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+                          <Gift className="w-4 h-4 text-amber-700" />
+                        </div>
+                        <div className="text-xs leading-relaxed">
+                          <div className="font-extrabold uppercase tracking-wide text-amber-900 flex items-center gap-1.5">
+                            <span>QUÀ TẶNG DÀNH RIÊNG</span>
+                          </div>
+                          <div className="font-bold text-slate-900 mt-0.5 text-xs sm:text-sm">
+                            {setMenu.gift.title}
+                          </div>
+                          <div className="text-slate-600 text-[11px] mt-0.5">
+                            {setMenu.gift.description}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 7. Khu vực "VOUCHER ƯU ĐÃI" kèm icon voucher */}
+                      <div className="mb-4 p-3.5 rounded-xl bg-rose-50/80 border border-rose-200/90 text-rose-950 flex items-start gap-3 shadow-2xs">
+                        <div className="w-8 h-8 rounded-lg bg-rose-200/80 text-rose-800 flex items-center justify-center shrink-0 mt-0.5">
+                          <Ticket className="w-4 h-4 text-rose-700" />
+                        </div>
+                        <div className="text-xs leading-relaxed">
+                          <div className="font-extrabold uppercase tracking-wide text-rose-900 flex items-center gap-1.5">
+                            <span>VOUCHER ƯU ĐÃI</span>
+                          </div>
+                          <div className="font-black text-red-700 mt-0.5 text-xs sm:text-sm">
+                            {setMenu.voucher.description}
+                          </div>
+                          <div className="text-slate-600 text-[11px] mt-0.5">
+                            Giảm trực tiếp vào tổng chi phí tiệc khi đủ số lượng bàn quy định.
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 8. Điều kiện áp dụng ngắn gọn */}
+                      <div className="flex items-center justify-between text-[11px] text-slate-500 pb-4 mb-4 border-b border-stone-200">
+                        <div className="flex items-center gap-1.5">
+                          <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{setMenu.conditionShort}</span>
+                        </div>
+                        <button
+                          onClick={() => setShowTermsModal(true)}
+                          className="text-red-700 hover:text-red-800 font-bold underline cursor-pointer inline-flex items-center gap-0.5"
+                        >
+                          <span>Xem điều kiện ưu đãi</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 9 & 10. Action Buttons */}
+                    <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                      {/* 9. Nút chính CTA: "NHẬN DỰ TOÁN & QUÀ TẶNG" */}
+                      <button
+                        onClick={() => onApplySetMenuToCalculator(setMenu)}
+                        className={`w-full sm:flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-black tracking-wide uppercase transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer ${
+                          isRecommended
+                            ? 'bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-700 hover:to-rose-800 text-white shadow-md'
+                            : 'bg-red-700 hover:bg-red-800 text-white'
+                        }`}
+                      >
+                        <span>NHẬN DỰ TOÁN & QUÀ TẶNG</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+
+                      {/* 10. Nút phụ "HỎI CHỊ LY" */}
+                      <a
+                        href={`tel:${BRAND_INFO.hotline1Raw}`}
+                        className="w-full sm:w-auto py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-700 bg-white border border-stone-300 hover:bg-stone-50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-red-600" />
+                        <span>HỎI CHỊ LY</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 
@@ -286,6 +414,69 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
         )}
 
       </div>
+
+      {/* MODAL: ĐIỀU KIỆN & QUY ĐỊNH ƯU ĐÃI (MỤC 6) */}
+      {showTermsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-stone-200 relative animate-in fade-in zoom-in-95 duration-150">
+            <button
+              onClick={() => setShowTermsModal(false)}
+              className="absolute top-5 right-5 p-2 rounded-full hover:bg-stone-100 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+              aria-label="Đóng"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-2xl bg-red-100 text-red-700 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-slate-900">
+                  Điều Kiện & Quy Định Ưu Đãi
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Chính sách áp dụng quà tặng và voucher từ Dịch vụ Tiệc Cưới Tuyến Ly
+                </p>
+              </div>
+            </div>
+
+            <ul className="space-y-3 text-xs sm:text-sm text-slate-700 mb-6 bg-stone-50 p-4 sm:p-5 rounded-2xl border border-stone-200">
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Voucher chỉ áp dụng cho hợp đồng đủ số lượng bàn tối thiểu theo từng combo.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Không cộng dồn nhiều voucher tiền mặt; mỗi tiệc áp dụng tối đa 1 voucher hợp lệ.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Không quy đổi quà tặng thành tiền mặt hoặc chuyển đổi sang các dịch vụ khác.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Quà tặng và voucher được xác nhận chính thức khi Tuyến Ly phê duyệt báo giá và điều kiện hợp đồng.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Ưu đãi có thể thay đổi khi số bàn, ngày tổ chức tiệc hoặc phạm vi dịch vụ thay đổi.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>Thời hạn chương trình và quà tặng đi kèm được áp dụng minh bạch theo thỏa thuận hợp đồng ký kết.</span>
+              </li>
+            </ul>
+
+            <button
+              onClick={() => setShowTermsModal(false)}
+              className="w-full py-3 rounded-xl font-bold text-sm bg-red-700 hover:bg-red-800 text-white transition-colors shadow-sm cursor-pointer"
+            >
+              Đã hiểu & Đóng thông tin
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
